@@ -10,6 +10,7 @@ import { SkillsSection } from "@/components/sections/skills-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { ResearchSection } from "@/components/sections/research-section";
 import { ContactSection } from "@/components/sections/contact-section";
+import { TestimonialsPreview } from "@/components/sections/testimonials-preview";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 import { SparklesCore } from "@/components/ui/sparkles";
 
@@ -27,7 +28,7 @@ export default function HomePage() {
       {/* Background Effects */}
       <AnimatedBackground />
       <FloatingParticles />
-      
+
       {/* Sparkles Effect */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <SparklesCore
@@ -56,27 +57,31 @@ export default function HomePage() {
       <section id="home" className="w-full">
         <HeroSection />
       </section>
-      
+
       <section id="about" className="w-full">
         <AboutSection />
       </section>
-      
+
       <section id="journey" className="w-full">
         <JourneySection />
       </section>
-      
+
       <section id="skills" className="w-full">
         <SkillsSection />
       </section>
-      
+
       <section id="projects" className="w-full">
         <ProjectsSection />
       </section>
-      
+
+      <section id="testimonials" className="w-full">
+        <TestimonialsPreview />
+      </section>
+
       <section id="research" className="w-full">
         <ResearchSection />
       </section>
-      
+
       <section id="contact" className="w-full">
         <ContactSection />
       </section>

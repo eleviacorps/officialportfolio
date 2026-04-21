@@ -2,16 +2,17 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Quote, Star, ChevronLeft, ChevronRight, ArrowLeft, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
 import { AnimatedBackground } from "@/components/effects/animated-background";
+import Link from "next/link";
 
 const testimonials = [
   {
     id: 1,
     quote:
-      "Alex delivered an exceptional product that exceeded all our expectations. His attention to detail and technical expertise are unmatched in the industry.",
+      "Rehan delivered an exceptional product that exceeded all our expectations. His attention to detail and technical expertise are unmatched in the industry.",
     author: "Sarah Chen",
     role: "CTO",
     company: "TechVentures Inc.",
@@ -21,7 +22,7 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "Working with Alex was a game-changer for our startup. The AI integration he implemented increased our efficiency by 300% within the first month.",
+      "Working with Rehan was a game-changer for our startup. The AI integration he implemented increased our efficiency by 300% within the first month.",
     author: "Michael Roberts",
     role: "Founder",
     company: "DataFlow AI",
@@ -31,7 +32,7 @@ const testimonials = [
   {
     id: 3,
     quote:
-      "The most professional developer I've had the pleasure to work with. Alex understands both the technical and business sides of projects perfectly.",
+      "The most professional developer I've had the pleasure to work with. Rehan understands both the technical and business sides of projects perfectly.",
     author: "Emily Watson",
     role: "Product Lead",
     company: "InnovateCo",
@@ -41,7 +42,7 @@ const testimonials = [
   {
     id: 4,
     quote:
-      "Exceptional work on our platform redesign. The animations and interactions Alex created made our product feel truly premium.",
+      "Exceptional work on our platform redesign. The animations and interactions Rehan created made our product feel truly premium.",
     author: "David Park",
     role: "CEO",
     company: "DesignStudio",
@@ -51,7 +52,7 @@ const testimonials = [
   {
     id: 5,
     quote:
-      "Alex's expertise in AI and machine learning transformed our data processing pipeline. Highly recommend for any complex technical projects.",
+      "Rehan's expertise in AI and machine learning transformed our data processing pipeline. Highly recommend for any complex technical projects.",
     author: "Lisa Thompson",
     role: "VP Engineering",
     company: "CloudScale",
@@ -61,13 +62,20 @@ const testimonials = [
   {
     id: 6,
     quote:
-      "A true creative technologist. Alex doesn't just write code—he crafts experiences. Our conversion rate increased 40% after the redesign.",
+      "A true creative technologist. Rehan doesn't just write code—he crafts experiences. Our conversion rate increased 40% after the redesign.",
     author: "James Wilson",
     role: "Marketing Director",
     company: "GrowthLabs",
     avatar: "JW",
     rating: 5,
   },
+];
+
+const stats = [
+  { value: "50+", label: "Projects" },
+  { value: "30+", label: "Happy Clients" },
+  { value: "100%", label: "Satisfaction" },
+  { value: "5.0", label: "Average Rating" },
 ];
 
 export default function TestimonialsPage() {
@@ -80,7 +88,9 @@ export default function TestimonialsPage() {
   };
 
   const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setActiveIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
   };
 
   // Auto-advance
@@ -90,27 +100,58 @@ export default function TestimonialsPage() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen">
       <AnimatedBackground />
 
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <Link
+              href="/#testimonials"
+              className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Testimonials
             </span>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.2}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white mb-8">
               Client <span className="text-gradient">Stories</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Hear from the amazing people I've had the privilege to work with
+          <Reveal delay={0.3}>
+            <p className="text-xl text-white/50 max-w-2xl mx-auto">
+              Hear from the amazing people I&apos;ve had the privilege to work
+              with
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="relative py-12 px-6">
+        <div className="max-w-6xl mx-auto">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat) => (
+              <StaggerItem key={stat.label}>
+                <motion.div
+                  className="glass rounded-2xl p-6 text-center"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                >
+                  <div className="text-4xl font-display font-bold text-gradient mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-white/50 text-sm">{stat.label}</div>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
@@ -120,8 +161,8 @@ export default function TestimonialsPage() {
           <Reveal>
             <div className="glass rounded-3xl p-8 sm:p-12 relative overflow-hidden">
               {/* Background Glow */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-neon-purple/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
 
               <div className="relative">
                 <AnimatePresence mode="wait">
@@ -135,24 +176,26 @@ export default function TestimonialsPage() {
                   >
                     {/* Quote Icon */}
                     <motion.div
-                      className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 flex items-center justify-center"
+                      className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center"
                       whileHover={{ scale: 1.1, rotate: 10 }}
                     >
-                      <Quote className="w-8 h-8 text-neon-cyan" />
+                      <Quote className="w-8 h-8 text-white" />
                     </motion.div>
 
                     {/* Stars */}
                     <div className="flex items-center justify-center gap-1 mb-8">
-                      {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.1 * i }}
-                        >
-                          <Star className="w-6 h-6 text-neon-cyan fill-neon-cyan" />
-                        </motion.div>
-                      ))}
+                      {[...Array(testimonials[activeIndex].rating)].map(
+                        (_, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1 * i }}
+                          >
+                            <Star className="w-6 h-6 text-white fill-white" />
+                          </motion.div>
+                        )
+                      )}
                     </div>
 
                     {/* Quote */}
@@ -162,14 +205,15 @@ export default function TestimonialsPage() {
 
                     {/* Author */}
                     <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center text-white font-bold text-xl mb-4">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center text-white font-bold text-xl mb-4">
                         {testimonials[activeIndex].avatar}
                       </div>
                       <div className="text-white font-display font-bold text-xl">
                         {testimonials[activeIndex].author}
                       </div>
                       <div className="text-white/50">
-                        {testimonials[activeIndex].role} at {testimonials[activeIndex].company}
+                        {testimonials[activeIndex].role} at{" "}
+                        {testimonials[activeIndex].company}
                       </div>
                     </div>
                   </motion.div>
@@ -190,10 +234,10 @@ export default function TestimonialsPage() {
                     {testimonials.map((_, index) => (
                       <motion.button
                         key={index}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        className={`h-2 rounded-full transition-all duration-300 ${
                           index === activeIndex
-                            ? "w-8 bg-neon-cyan"
-                            : "bg-white/20 hover:bg-white/40"
+                            ? "w-8 bg-white"
+                            : "w-2 bg-white/20 hover:bg-white/40"
                         }`}
                         onClick={() => setActiveIndex(index)}
                         whileHover={{ scale: 1.2 }}
@@ -220,7 +264,7 @@ export default function TestimonialsPage() {
       <section className="relative py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-2xl font-display font-bold text-white text-center mb-12">
+            <h2 className="text-3xl font-display font-bold text-white text-center mb-12">
               More Kind Words
             </h2>
           </Reveal>
@@ -229,23 +273,33 @@ export default function TestimonialsPage() {
             {testimonials.map((testimonial, index) => (
               <StaggerItem key={testimonial.id}>
                 <motion.div
-                  className="p-6 rounded-2xl glass h-full cursor-pointer group"
+                  className="p-6 rounded-2xl glass h-full cursor-pointer group hover:bg-white/[0.07] transition-all"
                   whileHover={{ y: -5, scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
+                  onClick={() => setActiveIndex(index)}
                 >
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-neon-cyan fill-neon-cyan" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-white fill-white"
+                      />
                     ))}
                   </div>
-                  <p className="text-white/70 mb-6 line-clamp-4">&ldquo;{testimonial.quote}&rdquo;</p>
+                  <p className="text-white/70 mb-6 line-clamp-4">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
                   <div className="flex items-center gap-3 mt-auto">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-cyan/50 to-neon-purple/50 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center text-white font-bold text-sm">
                       {testimonial.avatar}
                     </div>
                     <div>
-                      <div className="text-white font-medium text-sm">{testimonial.author}</div>
-                      <div className="text-white/40 text-xs">{testimonial.company}</div>
+                      <div className="text-white font-medium text-sm">
+                        {testimonial.author}
+                      </div>
+                      <div className="text-white/40 text-xs">
+                        {testimonial.company}
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -255,31 +309,28 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* CTA */}
       <section className="relative py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "50+", label: "Projects" },
-              { value: "30+", label: "Happy Clients" },
-              { value: "100%", label: "Satisfaction" },
-              { value: "5.0", label: "Average Rating" },
-            ].map((stat) => (
-              <StaggerItem key={stat.label}>
-                <div className="text-center">
-                  <motion.div
-                    className="text-4xl sm:text-5xl font-display font-bold text-gradient mb-2"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {stat.value}
-                  </motion.div>
-                  <div className="text-white/50 text-sm uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+        <div className="max-w-4xl mx-auto text-center">
+          <Reveal>
+            <h2 className="text-3xl font-display font-bold text-white mb-6">
+              Ready to work together?
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-white/50 mb-8">
+              Let&apos;s create something amazing together.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-white/90 transition-colors"
+            >
+              Get in Touch
+              <Sparkles className="w-4 h-4" />
+            </Link>
+          </Reveal>
         </div>
       </section>
     </div>

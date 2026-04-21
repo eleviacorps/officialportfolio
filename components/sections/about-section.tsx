@@ -4,10 +4,18 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { User, MapPin, Code2, Brain, Zap } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import Image from "next/image";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+
+  const infoCards = [
+    { icon: User, label: "Age", value: "19" },
+    { icon: MapPin, label: "Location", value: "India" },
+    { icon: Code2, label: "Started", value: "2022" },
+    { icon: Brain, label: "Focus", value: "AI Research" },
+  ];
 
   return (
     <section ref={sectionRef} className="relative w-full py-32 overflow-hidden">
@@ -31,50 +39,45 @@ export function AboutSection() {
             <Reveal delay={0.2}>
               <div className="space-y-4 text-white/60 text-lg leading-relaxed">
                 <p>
-                  I&apos;m Rehan Raza, a 19-year-old AI researcher and automation engineer from India. 
-                  My journey began in 2022 when I dove into Computer Science as an indie game developer, 
+                  I&apos;m Rehan Raza, a 19-year-old AI researcher and automation engineer from India.
+                  My journey began in 2022 when I dove into Computer Science as an indie game developer,
                   working on every aspect of game creation from texturing and music to multiplayer systems.
                 </p>
                 <p>
-                  Today, I focus on pushing the boundaries of AI systems, building intelligent automation 
-                  pipelines, and developing quantitative models for Nexus AI. My work spans from fine-tuning 
+                  Today, I focus on pushing the boundaries of AI systems, building intelligent automation
+                  pipelines, and developing quantitative models for Nexus AI. My work spans from fine-tuning
                   large language models to creating efficient CLI/TUI workflows that maximize developer productivity.
                 </p>
                 <p>
-                  When I&apos;m not researching or coding, you&apos;ll find me exploring the latest in AI 
-                  research, experimenting with new automation techniques, or building tools that make 
+                  When I&apos;m not researching or coding, you&apos;ll find me exploring the latest in AI
+                  research, experimenting with new automation techniques, or building tools that make
                   developers&apos; lives easier.
                 </p>
               </div>
             </Reveal>
 
-            {/* Quick Info Cards */}
+            {/* Quick Info Cards - Fixed Square Layout */}
             <Reveal delay={0.3}>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-                {[
-                  { icon: User, label: "Age", value: "19" },
-                  { icon: MapPin, label: "Location", value: "India" },
-                  { icon: Code2, label: "Started", value: "2022" },
-                  { icon: Brain, label: "Focus", value: "AI Research" },
-                ].map((item, index) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
+                {infoCards.map((item, index) => (
                   <motion.div
                     key={item.label}
-                    className="p-4 rounded-xl glass text-center"
+                    className="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl glass"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    whileHover={{ y: -4 }}
+                    whileHover={{ y: -4, scale: 1.02 }}
                   >
-                    <item.icon className="w-5 h-5 text-white/60 mx-auto mb-2" />
-                    <div className="text-white font-display font-bold text-lg">{item.value}</div>
-                    <div className="text-white/40 text-xs">{item.label}</div>
+                    <item.icon className="w-6 h-6 text-white/60 mb-3" />
+                    <div className="text-white font-display font-bold text-2xl">{item.value}</div>
+                    <div className="text-white/40 text-xs mt-1">{item.label}</div>
                   </motion.div>
                 ))}
               </div>
             </Reveal>
           </div>
 
-          {/* Right Content - Visual */}
+          {/* Right Content - Visual with Image */}
           <Reveal delay={0.2}>
             <div className="relative">
               <motion.div
@@ -82,25 +85,36 @@ export function AboutSection() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-graphite to-abyss flex items-center justify-center">
-                  <span className="text-9xl font-display font-bold text-white/10">RR</span>
-                </div>
+                {/* Profile Image */}
+                <Image
+                  src="/assets/profile.jpg"
+                  alt="Rehan Raza"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {/* Overlay gradient for better text contrast if needed */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
                 {/* Animated border */}
                 <motion.div
-                  className="absolute inset-0 rounded-3xl"
+                  className="absolute inset-0 rounded-3xl pointer-events-none"
                   style={{
-                    background: "linear-gradient(90deg, #333, #444, #555, #333)",
+                    background: "linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2))",
                     backgroundSize: "300% 100%",
+                    padding: "2px",
+                    mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    maskComposite: "xor",
+                    WebkitMaskComposite: "xor",
                   }}
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute inset-[2px] rounded-3xl bg-abyss" />
               </motion.div>
 
               {/* Floating stats */}
               <motion.div
-                className="absolute -right-4 top-1/4 glass rounded-2xl p-4 hidden sm:block"
+                className="absolute -right-4 top-1/4 glass rounded-2xl p-4 hidden sm:block z-10"
                 initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.5, duration: 0.6 }}

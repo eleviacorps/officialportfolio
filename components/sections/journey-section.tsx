@@ -2,9 +2,10 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Gamepad2, Code, Globe, LineChart, Cpu } from "lucide-react";
+import { Gamepad2, Code, Globe, LineChart, Cpu, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { Timeline } from "@/components/ui/timeline";
+import Link from "next/link";
 
 const journeyData = [
   {
@@ -67,7 +68,7 @@ export function JourneySection() {
     <section ref={sectionRef} className="relative w-full py-32 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent pointer-events-none" />
-      
+
       <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
         {/* Header */}
         <div className="text-center mb-20">
@@ -113,6 +114,19 @@ export function JourneySection() {
                 <div className="text-white/50 text-sm">{stat.label}</div>
               </motion.div>
             ))}
+          </div>
+        </Reveal>
+
+        {/* View Full Journey Link */}
+        <Reveal delay={0.5}>
+          <div className="text-center mt-12">
+            <Link
+              href="/journey"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-white/60 hover:text-white hover:bg-white/10 transition-all"
+            >
+              View full journey
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </Reveal>
       </div>

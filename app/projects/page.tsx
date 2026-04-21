@@ -1,177 +1,311 @@
 "use client";
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink, Github, Layers, ArrowRight } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Layers,
+  ArrowLeft,
+  Cpu,
+  Globe,
+  Bot,
+  LineChart,
+  Wrench,
+  Sparkles,
+  Search,
+  Filter,
+} from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { GlowButton } from "@/components/effects/glow-button";
-import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
-import { PinContainer } from "@/components/ui/3d-pin";
+import { AnimatedBackground } from "@/components/effects/animated-background";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-const categories = ["All", "Web App", "AI/ML", "Mobile", "Open Source"];
+const categories = [
+  "All",
+  "AI Research",
+  "Automation",
+  "Web Apps",
+  "Quant/Finance",
+  "Developer Tools",
+];
 
 const projects = [
   {
     id: 1,
-    title: "Neural Vision",
-    category: "AI/ML",
-    description: "Real-time object detection using YOLO and WebGL visualization with TensorFlow.js",
-    image: "/images/project-1.jpg",
-    tags: ["React", "TensorFlow.js", "WebGL"],
-    github: "#",
+    title: "Nexus AI",
+    category: "AI Research",
+    description:
+      "Advanced quantitative models and AI systems for financial analysis and prediction. Implements neural network architectures for market analysis and automated trading strategies.",
+    tags: ["Python", "TensorFlow", "Quant", "PyTorch"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: Cpu,
     featured: true,
+    year: "2025",
   },
   {
     id: 2,
-    title: "Crypto Pulse",
-    category: "Web App",
-    description: "Real-time cryptocurrency dashboard with predictive analytics and trading signals",
-    image: "/images/project-2.jpg",
-    tags: ["Next.js", "GraphQL", "D3.js"],
-    github: "#",
+    title: "Project RT",
+    category: "AI Research",
+    description:
+      "Real-time AI processing system with optimized inference pipelines. Focuses on efficient AI usage and model optimization techniques for low-latency responses.",
+    tags: ["Python", "OpenAI", "Real-time", "WebSocket"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: Bot,
     featured: true,
+    year: "2025",
   },
   {
     id: 3,
-    title: "Flow State",
-    category: "Mobile",
-    description: "AI-powered focus and productivity companion with smart scheduling",
-    image: "/images/project-3.jpg",
-    tags: ["React Native", "Node.js", "OpenAI"],
-    github: "#",
+    title: "Automation Pipeline",
+    category: "Automation",
+    description:
+      "End-to-end automation framework for AI workflows. Streamlines complex tasks with intelligent orchestration, error handling, and self-healing capabilities.",
+    tags: ["Python", "Node.js", "Automation", "Redis"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: Layers,
     featured: true,
+    year: "2025",
   },
   {
     id: 4,
-    title: "DataSync",
-    category: "Open Source",
-    description: "Lightweight data synchronization library for real-time applications",
-    image: "/images/project-4.jpg",
-    tags: ["TypeScript", "WebSocket", "Redis"],
-    github: "#",
+    title: "Portfolio Website",
+    category: "Web Apps",
+    description:
+      "Modern, interactive portfolio built with Next.js and Framer Motion. Features smooth animations, premium glassmorphism design, and responsive layouts.",
+    tags: ["Next.js", "TypeScript", "Motion", "Tailwind"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: Globe,
     featured: false,
+    year: "2024",
   },
   {
     id: 5,
-    title: "VoiceCanvas",
-    category: "AI/ML",
-    description: "Voice-controlled canvas for creative expression using NLP",
-    image: "/images/project-5.jpg",
-    tags: ["Python", "FastAPI", "Whisper"],
-    github: "#",
+    title: "Quant Trading Bot",
+    category: "Quant/Finance",
+    description:
+      "Algorithmic trading system with backtesting capabilities. Implements quantitative strategies with risk management and portfolio optimization.",
+    tags: ["Python", "Pandas", "Finance", "NumPy"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: LineChart,
     featured: false,
+    year: "2025",
   },
   {
     id: 6,
-    title: "DevSpace",
-    category: "Web App",
-    description: "Collaborative development environment with real-time code sharing",
-    image: "/images/project-6.jpg",
-    tags: ["Next.js", "WebRTC", "Yjs"],
-    github: "#",
+    title: "CLI Toolkit",
+    category: "Developer Tools",
+    description:
+      "Command-line utilities for developer productivity. Includes TUI components, automation scripts, and common workflow enhancers.",
+    tags: ["Rust", "CLI", "TUI", "Bash"],
+    github: "https://github.com/eleviacorps/",
     live: "#",
+    icon: Wrench,
     featured: false,
+    year: "2024",
   },
+  {
+    id: 7,
+    title: "AI Chat Interface",
+    category: "AI Research",
+    description:
+      "Custom chat interface for interacting with multiple LLM providers. Features streaming responses, conversation history, and prompt templates.",
+    tags: ["React", "TypeScript", "OpenAI", "Claude"],
+    github: "https://github.com/eleviacorps/",
+    live: "#",
+    icon: Bot,
+    featured: false,
+    year: "2025",
+  },
+  {
+    id: 8,
+    title: "Data Sync Engine",
+    category: "Automation",
+    description:
+      "Real-time data synchronization engine for distributed systems. Ensures consistency across multiple data sources with conflict resolution.",
+    tags: ["Node.js", "PostgreSQL", "Redis", "WebSocket"],
+    github: "https://github.com/eleviacorps/",
+    live: "#",
+    icon: Layers,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 9,
+    title: "Analytics Dashboard",
+    category: "Web Apps",
+    description:
+      "Comprehensive analytics dashboard with real-time data visualization. Features custom charts, export capabilities, and alerting systems.",
+    tags: ["Next.js", "D3.js", "PostgreSQL", "Prisma"],
+    github: "https://github.com/eleviacorps/",
+    live: "#",
+    icon: Globe,
+    featured: false,
+    year: "2024",
+  },
+];
+
+const stats = [
+  { value: "9+", label: "Projects" },
+  { value: "6", label: "Categories" },
+  { value: "4+", label: "Years" },
+  { value: "100%", label: "Open Source" },
 ];
 
 export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
-  const filteredProjects = projects.filter(
-    (p) => activeCategory === "All" || p.category === activeCategory
-  );
+  const filteredProjects = projects.filter((p) => {
+    const matchesCategory =
+      activeCategory === "All" || p.category === activeCategory;
+    const matchesSearch =
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    return matchesCategory && matchesSearch;
+  });
 
   const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen">
       <AnimatedBackground />
-      <FloatingParticles />
 
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
+            <Link
+              href="/#projects"
+              className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
             <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Portfolio
             </span>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.2}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white mb-8">
-              Featured <span className="text-gradient">Projects</span>
+              All <span className="text-gradient">Projects</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
+          <Reveal delay={0.3}>
             <p className="text-xl text-white/50 max-w-2xl mx-auto">
-              A selection of my recent work across web, mobile, and AI development
+              A complete collection of my work spanning AI research, automation
+              systems, web development, and developer tools.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Featured Projects with 3D Pin */}
+      {/* Stats */}
+      <section className="relative py-12 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                className="glass rounded-2xl p-6 text-center"
+                whileHover={{ y: -4, scale: 1.02 }}
+              >
+                <div className="text-4xl font-display font-bold text-gradient mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-white/50 text-sm">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
       <section className="relative py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-2xl font-display font-bold text-white mb-12 flex items-center gap-3">
-              <Layers className="w-6 h-6 text-white/60" />
-              Featured Work
+            <h2 className="text-3xl font-display font-bold text-white mb-12 flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-white/60" />
+              Featured Projects
             </h2>
           </Reveal>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={0.1 * index}>
-                <PinContainer
-                  title={project.title}
-                  href={project.live}
+                <motion.div
+                  className="glass rounded-2xl p-6 h-full group hover:bg-white/[0.07] transition-all duration-300"
+                  whileHover={{ y: -4 }}
                 >
-                  <div className="flex flex-col p-4 tracking-tight w-[280px] h-[320px]">
-                    <h3 className="font-bold text-white text-xl mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-white/50 text-sm mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center">
+                      <project.icon className="w-6 h-6 text-white" />
                     </div>
-                    <div className="flex-1 w-full rounded-lg bg-gradient-to-br from-charcoal to-graphite flex items-center justify-center">
-                      <span className="text-4xl font-bold text-white/20">
-                        {project.title.charAt(0)}
+                    <div>
+                      <h3 className="font-bold text-white text-lg">
+                        {project.title}
+                      </h3>
+                      <span className="text-xs text-white/40">
+                        {project.category} • {project.year}
                       </span>
                     </div>
                   </div>
-                </PinContainer>
+                  <p className="text-white/50 text-sm mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 text-xs rounded bg-white/5 text-white/70"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-4 pt-4 border-t border-white/10">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-sm"
+                    >
+                      <Github className="w-4 h-4" />
+                      Code
+                    </a>
+                    <a
+                      href={project.live}
+                      className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Demo
+                    </a>
+                  </div>
+                </motion.div>
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* All Projects */}
+      {/* Filter & Search */}
+      <section className="relative py-12 px-6 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
-              <h2 className="text-2xl font-display font-bold text-white flex items-center gap-3">
-                <span className="w-2 h-2 bg-white rounded-full" />
-                All Projects
-              </h2>
-
+            <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-8">
               {/* Category Filter */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2">
                 {categories.map((category) => (
                   <motion.button
                     key={category}
@@ -189,53 +323,98 @@ export default function ProjectsPage() {
                   </motion.button>
                 ))}
               </div>
+
+              {/* Search */}
+              <div className="relative w-full md:w-auto">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full md:w-64 pl-10 pr-4 py-2 rounded-full glass text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/20"
+                />
+              </div>
             </div>
           </Reveal>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" ref={sectionRef}>
+          {/* All Projects Grid */}
+          <div ref={sectionRef}>
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <PinContainer
-                    title={project.title}
-                    href={project.live}
-                    className="w-full"
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <div className="flex flex-col p-4 tracking-tight w-full h-[300px]">
-                      <h3 className="font-bold text-white text-xl mb-2">
-                        {project.title}
-                      </h3>
+                    <div className="glass rounded-2xl p-6 h-full group hover:bg-white/[0.07] transition-all duration-300">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors flex items-center justify-center">
+                          <project.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-white group-hover:text-gradient transition-all truncate">
+                            {project.title}
+                          </h3>
+                          <span className="text-xs text-white/40">
+                            {project.category} • {project.year}
+                          </span>
+                        </div>
+                      </div>
                       <p className="text-white/50 text-sm mb-4 line-clamp-2">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
+                        {project.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
+                            className="px-2 py-1 text-xs rounded bg-white/5 text-white/70"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
-                      <div className="flex-1 w-full rounded-lg bg-gradient-to-br from-charcoal to-graphite flex items-center justify-center">
-                        <span className="text-4xl font-bold text-white/20">
-                          {project.title.charAt(0)}
-                        </span>
+                      <div className="flex items-center gap-4 pt-4 border-t border-white/10">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-xs"
+                        >
+                          <Github className="w-3.5 h-3.5" />
+                          Code
+                        </a>
+                        <a
+                          href={project.live}
+                          className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-xs"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Demo
+                        </a>
                       </div>
                     </div>
-                  </PinContainer>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </AnimatePresence>
+
+            {/* Empty State */}
+            {filteredProjects.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20"
+              >
+                <Filter className="w-12 h-12 text-white/20 mx-auto mb-4" />
+                <p className="text-white/40">
+                  No projects found matching your criteria
+                </p>
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
@@ -250,13 +429,18 @@ export default function ProjectsPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-white/50 mb-8">
-              I&apos;m always interested in hearing about new projects and opportunities.
+              I&apos;m always interested in hearing about new projects and
+              opportunities.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <GlowButton href="/contact" icon={<ArrowRight className="w-4 h-4" />}>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-white/90 transition-colors"
+            >
               Let&apos;s Talk
-            </GlowButton>
+              <ExternalLink className="w-4 h-4" />
+            </Link>
           </Reveal>
         </div>
       </section>

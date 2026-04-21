@@ -2,14 +2,14 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { GlowButton } from "@/components/effects/glow-button";
+import Link from "next/link";
 
 const testimonials = [
   {
     quote:
-      "Alex delivered an exceptional product that exceeded all expectations. His attention to detail and technical expertise are unmatched.",
+      "Rehan delivered an exceptional product that exceeded all our expectations. His attention to detail and technical expertise are unmatched.",
     author: "Sarah Chen",
     role: "CTO at TechVentures",
     avatar: "SC",
@@ -17,7 +17,7 @@ const testimonials = [
   },
   {
     quote:
-      "Working with Alex was a game-changer for our startup. The AI integration he implemented increased our efficiency by 300%.",
+      "Working with Rehan was a game-changer for our startup. The AI integration he implemented increased our efficiency by 300%.",
     author: "Michael Roberts",
     role: "Founder at DataFlow",
     avatar: "MR",
@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     quote:
-      "The most professional developer I've worked with. Alex understands both the technical and business sides of projects perfectly.",
+      "The most professional developer I've worked with. Rehan understands both the technical and business sides of projects perfectly.",
     author: "Emily Watson",
     role: "Product Lead at InnovateCo",
     avatar: "EW",
@@ -46,20 +46,24 @@ export function TestimonialsPreview() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 px-6 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="testimonials"
+      className="relative py-32 px-6 overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0 bg-void" />
       <div className="absolute inset-0 bg-gradient-to-b from-abyss via-void to-abyss opacity-50" />
 
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-neon-cyan/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-neon-purple/5 rounded-full blur-[100px]" />
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-white/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-white/5 rounded-full blur-[100px]" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Testimonials
             </span>
           </Reveal>
@@ -83,15 +87,18 @@ export function TestimonialsPreview() {
                   <motion.div
                     className="max-w-3xl mx-auto text-center"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: activeIndex === index ? 1 : 0.3, y: 0 }}
+                    animate={{
+                      opacity: activeIndex === index ? 1 : 0.3,
+                      y: 0,
+                    }}
                     transition={{ duration: 0.4 }}
                   >
                     {/* Quote Icon */}
                     <motion.div
-                      className="w-16 h-16 mx-auto mb-8 rounded-full bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 flex items-center justify-center"
+                      className="w-16 h-16 mx-auto mb-8 rounded-full bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center"
                       whileHover={{ scale: 1.1, rotate: 10 }}
                     >
-                      <Quote className="w-6 h-6 text-neon-cyan" />
+                      <Quote className="w-6 h-6 text-white" />
                     </motion.div>
 
                     {/* Quote */}
@@ -108,19 +115,23 @@ export function TestimonialsPreview() {
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.1 * i }}
                         >
-                          <Star className="w-5 h-5 text-neon-cyan fill-neon-cyan" />
+                          <Star className="w-5 h-5 text-white fill-white" />
                         </motion.div>
                       ))}
                     </div>
 
                     {/* Author */}
                     <div className="flex items-center justify-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center text-white font-bold">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center text-white font-bold">
                         {testimonial.avatar}
                       </div>
                       <div className="text-left">
-                        <div className="text-white font-medium">{testimonial.author}</div>
-                        <div className="text-white/50 text-sm">{testimonial.role}</div>
+                        <div className="text-white font-medium">
+                          {testimonial.author}
+                        </div>
+                        <div className="text-white/50 text-sm">
+                          {testimonial.role}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -134,10 +145,10 @@ export function TestimonialsPreview() {
             {testimonials.map((_, index) => (
               <motion.button
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   activeIndex === index
-                    ? "w-8 bg-neon-cyan"
-                    : "bg-white/20 hover:bg-white/40"
+                    ? "w-8 bg-white"
+                    : "w-2 bg-white/20 hover:bg-white/40"
                 }`}
                 onClick={() => setActiveIndex(index)}
                 whileHover={{ scale: 1.2 }}
@@ -170,6 +181,19 @@ export function TestimonialsPreview() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </Reveal>
+
+        {/* View All Link */}
+        <Reveal delay={0.5}>
+          <div className="text-center mt-12">
+            <Link
+              href="/testimonials"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-white/60 hover:text-white hover:bg-white/10 transition-all"
+            >
+              View all testimonials
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </Reveal>
       </div>

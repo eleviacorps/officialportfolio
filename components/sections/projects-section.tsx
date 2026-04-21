@@ -6,6 +6,7 @@ import { ExternalLink, Github, Layers, ArrowRight, Cpu, Globe, Bot, LineChart, W
 import { Reveal } from "@/components/motion/reveal";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const categories = ["All", "AI Research", "Automation", "Web Apps", "Quant/Finance", "Developer Tools"];
 
@@ -106,7 +107,7 @@ export function ProjectsSection() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="max-w-2xl mx-auto text-lg text-white/50">
-              A selection of projects spanning AI research, automation systems, 
+              A selection of projects spanning AI research, automation systems,
               web development, and developer tools.
             </p>
           </Reveal>
@@ -121,57 +122,61 @@ export function ProjectsSection() {
             </h3>
           </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={0.1 * index}>
-                <PinContainer
-                  title={project.title}
-                  href={project.github}
-                  className="w-full"
-                >
-                  <div className="flex flex-col p-6 tracking-tight w-full h-[340px]">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                        <project.icon className="w-5 h-5 text-white/80" />
+                <div className="relative z-10" style={{ zIndex: 30 - index }}>
+                  <PinContainer
+                    title={project.title}
+                    href={project.github}
+                    className="w-full"
+                  >
+                    <div className="flex flex-col p-6 tracking-tight w-full h-full min-h-[320px]">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                          <project.icon className="w-5 h-5 text-white/80" />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="font-bold text-white text-lg truncate">{project.title}</h3>
+                          <span className="text-xs text-white/40">{project.category}</span>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-white text-lg">{project.title}</h3>
-                        <span className="text-xs text-white/40">{project.category}</span>
+                      <p className="text-white/50 text-sm mb-4 flex-1 line-clamp-3">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
-                    </div>
-                    <p className="text-white/50 text-sm mb-4 flex-1 line-clamp-3">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
+                      <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          <Github className="w-4 h-4" />
+                          Code
+                        </a>
+                        <a
+                          href={project.live}
+                          className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Demo
+                        </a>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
-                      >
-                        <Github className="w-4 h-4" />
-                        Code
-                      </a>
-                      <a
-                        href={project.live}
-                        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Demo
-                      </a>
-                    </div>
-                  </div>
-                </PinContainer>
+                  </PinContainer>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -200,7 +205,7 @@ export function ProjectsSection() {
         </Reveal>
 
         {/* All Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects
               .filter((p) => !p.featured || activeCategory !== "All")
@@ -212,14 +217,16 @@ export function ProjectsSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="relative z-10"
+                  style={{ zIndex: 20 - index }}
                 >
                   <div className="glass rounded-2xl p-6 h-full group hover:bg-white/[0.07] transition-all duration-300">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors flex items-center justify-center flex-shrink-0">
                         <project.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
                       </div>
-                      <div>
-                        <h3 className="font-bold text-white group-hover:text-gradient transition-all">
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-white group-hover:text-gradient transition-all truncate">
                           {project.title}
                         </h3>
                         <span className="text-xs text-white/40">{project.category}</span>
@@ -265,15 +272,13 @@ export function ProjectsSection() {
         {/* View All Link */}
         <Reveal delay={0.4}>
           <div className="text-center mt-12">
-            <a
-              href="https://github.com/eleviacorps/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors"
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-white/60 hover:text-white hover:bg-white/10 transition-all"
             >
-              View all projects on GitHub
+              View all projects
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </Reveal>
       </div>

@@ -6,15 +6,16 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Menu, X, Github, Linkedin, Instagram } from "lucide-react";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#journey", label: "Journey" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#research", label: "Research" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/journey", label: "Journey" },
+  { href: "/skills", label: "Skills" },
+  { href: "/projects", label: "Projects" },
+  { href: "/testimonials", label: "Testimonials" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const socialLinks = [
@@ -27,32 +28,46 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const { isScrolled } = useScrollProgress();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map((item) => item.href.replace("#", ""));
-      const scrollPosition = window.scrollY + 100;
+    // If on homepage, track scroll position for active section
+    if (pathname === "/") {
+      const handleScroll = () => {
+        const sections = ["home", "about", "journey", "skills", "projects", "research", "contact"];
+        const scrollPosition = window.scrollY + 100;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = document.getElementById(sections[i]);
+          if (section && section.offsetTop <= scrollPosition) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
-      }
-    };
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("/#")) {
+      // On homepage anchor
+      e.preventDefault();
+      const element = document.querySelector(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsOpen(false);
+  };
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/" && activeSection === "home";
+    }
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
   return (
@@ -61,7 +76,7 @@ export function Navigation() {
       <motion.header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled ? "py-3" : "py-5"
+          isScrolled || pathname !== "/" ? "py-3" : "py-5"
         )}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -72,13 +87,13 @@ export function Navigation() {
             className={cn(
               "relative flex items-center justify-between px-6 py-3 rounded-full",
               "transition-all duration-500 border border-transparent",
-              isScrolled
+              isScrolled || pathname !== "/"
                 ? "bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.05)]"
                 : "bg-transparent"
             )}
           >
             {/* Animated border glow */}
-            {isScrolled && (
+            {(isScrolled || pathname !== "/") && (
               <motion.div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 animate={{
@@ -106,9 +121,9 @@ export function Navigation() {
             {/* Desktop Menu Items */}
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.replace("#", "");
+                const active = isActive(item.href);
                 return (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
@@ -117,20 +132,20 @@ export function Navigation() {
                     <motion.span
                       className={cn(
                         "text-sm font-medium transition-colors duration-300",
-                        isActive ? "text-white" : "text-white/60 hover:text-white"
+                        active ? "text-white" : "text-white/60 hover:text-white"
                       )}
                       whileHover={{ y: -2 }}
                     >
                       {item.label}
                     </motion.span>
-                    {isActive && (
+                    {active && (
                       <motion.div
                         layoutId="nav-indicator"
                         className="absolute inset-x-2 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -150,16 +165,13 @@ export function Navigation() {
                   <social.icon className="w-4 h-4" />
                 </motion.a>
               ))}
-              <motion.a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "#contact")}
+              <Link
+                href="/contact"
                 className="relative px-5 py-2 text-sm font-medium rounded-full overflow-hidden group ml-4"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/90 to-white/70 group-hover:from-white group-hover:to-white transition-all" />
                 <span className="relative text-black">Let&apos;s Talk</span>
-              </motion.a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -220,7 +232,7 @@ export function Navigation() {
               <div className="flex flex-col h-full pt-24 px-8 pb-8">
                 <nav className="flex flex-col gap-1">
                   {navItems.map((item, index) => {
-                    const isActive = activeSection === item.href.replace("#", "");
+                    const active = isActive(item.href);
                     return (
                       <motion.div
                         key={item.href}
@@ -229,16 +241,18 @@ export function Navigation() {
                         exit={{ opacity: 0, x: 20 }}
                         transition={{ delay: index * 0.05 }}
                       >
-                        <a
+                        <Link
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
                           className={cn(
                             "block py-4 text-2xl font-display font-medium border-b border-white/10 transition-all",
-                            isActive ? "text-white pl-4 border-l-2 border-l-white" : "text-white/70 hover:text-white hover:pl-2"
+                            active
+                              ? "text-white pl-4 border-l-2 border-l-white"
+                              : "text-white/70 hover:text-white hover:pl-2"
                           )}
                         >
                           {item.label}
-                        </a>
+                        </Link>
                       </motion.div>
                     );
                   })}
@@ -246,7 +260,9 @@ export function Navigation() {
 
                 {/* Social Links in Mobile Menu */}
                 <div className="mt-8">
-                  <p className="text-white/40 text-sm mb-4 uppercase tracking-wider">Connect</p>
+                  <p className="text-white/40 text-sm mb-4 uppercase tracking-wider">
+                    Connect
+                  </p>
                   <div className="flex gap-4">
                     {socialLinks.map((social, index) => (
                       <motion.a
@@ -267,17 +283,13 @@ export function Navigation() {
                 </div>
 
                 <div className="mt-auto">
-                  <motion.a
-                    href="#contact"
-                    onClick={(e) => handleNavClick(e, "#contact")}
+                  <Link
+                    href="/contact"
                     className="block w-full py-4 text-center text-lg font-medium rounded-full bg-white text-black"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: 0.4 }}
+                    onClick={() => setIsOpen(false)}
                   >
                     Let&apos;s Talk
-                  </motion.a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

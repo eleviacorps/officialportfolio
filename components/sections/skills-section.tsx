@@ -2,10 +2,20 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Brain, Bot, Code2, Terminal, Sparkles, Workflow, Cpu, Globe, Database, GitBranch } from "lucide-react";
+import { Brain, Bot, Code2, Terminal, Sparkles, Workflow, Cpu, Globe, Database, GitBranch, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+// Unique percentages for each category
+const skillPercentages: Record<string, number[]> = {
+  "ai-research": [92, 88, 85, 90],
+  "automation": [90, 87, 89, 91],
+  "web-dev": [95, 93, 88, 86],
+  "programming": [88, 94, 91, 85],
+  "cli-tui": [89, 92, 87, 90],
+  "tools": [93, 91, 88, 90],
+};
 
 const skillCategories = [
   {
@@ -58,6 +68,7 @@ export function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState("ai-research");
 
   const activeData = skillCategories.find((c) => c.id === activeCategory);
+  const activePercentages = skillPercentages[activeCategory] || [85, 88, 91, 94];
 
   return (
     <section ref={sectionRef} className="relative w-full py-32 overflow-hidden">
@@ -76,7 +87,7 @@ export function SkillsSection() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="max-w-2xl mx-auto text-lg text-white/50">
-              A comprehensive toolkit built through years of hands-on experience in AI research, 
+              A comprehensive toolkit built through years of hands-on experience in AI research,
               automation engineering, and full-stack development.
             </p>
           </Reveal>
@@ -109,7 +120,7 @@ export function SkillsSection() {
                     <div className="flex items-center gap-4">
                       <div
                         className={cn(
-                          "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
+                          "w-10 h-10 rounded-lg flex items-center justify-center transition-colors flex-shrink-0",
                           activeCategory === category.id
                             ? "bg-white text-black"
                             : "bg-white/5 text-white/60 group-hover:text-white"
@@ -153,7 +164,7 @@ export function SkillsSection() {
                   >
                     {/* Header */}
                     <div className="flex items-start gap-4 mb-8">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center flex-shrink-0">
                         <activeData.icon className="w-8 h-8 text-white" />
                       </div>
                       <div>
@@ -165,7 +176,7 @@ export function SkillsSection() {
                     </div>
 
                     {/* Skills Tags */}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3 mb-8">
                       {activeData.skills.map((skill, index) => (
                         <motion.span
                           key={skill}
@@ -179,24 +190,27 @@ export function SkillsSection() {
                       ))}
                     </div>
 
-                    {/* Progress Bars */}
-                    <div className="mt-8 space-y-4">
-                      {activeData.skills.slice(0, 4).map((skill, index) => (
-                        <div key={skill}>
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-white/70 text-sm">{skill}</span>
-                            <span className="text-white/40 text-sm">{85 + index * 3}%</span>
+                    {/* Progress Bars with Unique Percentages */}
+                    <div className="space-y-4">
+                      {activeData.skills.slice(0, 4).map((skill, index) => {
+                        const percentage = activePercentages[index] || 85;
+                        return (
+                          <div key={skill}>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-white/70 text-sm">{skill}</span>
+                              <span className="text-white/40 text-sm">{percentage}%</span>
+                            </div>
+                            <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                              <motion.div
+                                className="h-full bg-gradient-to-r from-white/80 to-white/40 rounded-full"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${percentage}%` }}
+                                transition={{ delay: 0.5 + index * 0.1, duration: 0.8 }}
+                              />
+                            </div>
                           </div>
-                          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                            <motion.div
-                              className="h-full bg-gradient-to-r from-white/80 to-white/40 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: `${85 + index * 3}%` }}
-                              transition={{ delay: 0.5 + index * 0.1, duration: 0.8 }}
-                            />
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}
@@ -204,6 +218,19 @@ export function SkillsSection() {
             </Reveal>
           </div>
         </div>
+
+        {/* View All Skills Link */}
+        <Reveal delay={0.4}>
+          <div className="text-center mt-12">
+            <Link
+              href="/skills"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-white/60 hover:text-white hover:bg-white/10 transition-all"
+            >
+              View all skills
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
