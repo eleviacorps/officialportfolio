@@ -29,7 +29,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotted-map": "^3.1.0",
-    "framer-motion": "^11.3.17",
+    "framer-motion": "^11.18.2",
     "gsap": "^3.15.0",
     "lucide-react": "^0.446.0",
     "motion": "^12.38.0",

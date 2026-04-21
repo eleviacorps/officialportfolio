@@ -14,7 +14,7 @@ export function AboutSection() {
     { icon: User, label: "Age", value: "19" },
     { icon: MapPin, label: "Location", value: "India" },
     { icon: Code2, label: "Started", value: "2022" },
-    { icon: Brain, label: "Focus", value: "AI Research" },
+    { icon: Brain, label: "Focus", value: "AI" },
   ];
 
   return (
@@ -60,18 +60,19 @@ export function AboutSection() {
             <Reveal delay={0.3}>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
                 {infoCards.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    className="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl glass"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                  >
-                    <item.icon className="w-6 h-6 text-white/60 mb-3" />
-                    <div className="text-white font-display font-bold text-2xl">{item.value}</div>
-                    <div className="text-white/40 text-xs mt-1">{item.label}</div>
-                  </motion.div>
+            <motion.div
+              key={item.label}
+              className="aspect-square flex flex-col items-center justify-center p-3 rounded-2xl glass text-center min-w-[100px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.4 + index * 0.1 }}
+              whileHover={{ y: -4, scale: 1.02 }}
+              style={{ minWidth: '100px', minHeight: '100px' }}
+            >
+              <item.icon className="w-5 h-5 text-white/60 mb-2" />
+              <div className="text-white font-display font-bold text-xl sm:text-2xl">{item.value}</div>
+              <div className="text-white/40 text-xs mt-1">{item.label}</div>
+            </motion.div>
                 ))}
               </div>
             </Reveal>
