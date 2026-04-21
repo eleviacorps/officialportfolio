@@ -3,19 +3,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X, Github, Linkedin, Instagram } from "lucide-react";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
-import { usePathname } from "next/navigation";
 
+// Nav items - some are hash links (homepage sections), some are separate pages
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/journey", label: "Journey" },
-  { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" },
-  { href: "/testimonials", label: "Testimonials" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home", isHash: false },
+  { href: "/about", label: "About", isHash: false },
+  { href: "/journey", label: "Journey", isHash: false },
+  { href: "/skills", label: "Skills", isHash: false },
+  { href: "/projects", label: "Projects", isHash: false },
+  { href: "/testimonials", label: "Testimonials", isHash: false },
+  { href: "/contact", label: "Contact", isHash: false },
 ];
 
 const socialLinks = [
@@ -29,45 +30,51 @@ export function Navigation() {
   const [activeSection, setActiveSection] = useState("home");
   const { isScrolled } = useScrollProgress();
   const pathname = usePathname();
+  const router = useRouter();
+  const isHomepage = pathname === "/";
 
+  // Track active section on homepage
   useEffect(() => {
-    // If on homepage, track scroll position for active section
-    if (pathname === "/") {
-      const handleScroll = () => {
-        const sections = ["home", "about", "journey", "skills", "projects", "research", "contact"];
-        const scrollPosition = window.scrollY + 100;
+    if (!isHomepage) return;
+    
+    const handleScroll = () => {
+      const sections = ["home", "about", "journey", "skills", "projects", "testimonials", "research", "contact"];
+      const scrollPosition = window.scrollY + 150;
 
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const section = document.getElementById(sections[i]);
-          if (section && section.offsetTop <= scrollPosition) {
-            setActiveSection(sections[i]);
-            break;
-          }
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
         }
-      };
+      }
+    };
 
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, [pathname]);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomepage]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("/#")) {
-      // On homepage anchor
+  const handleNavClick = (e: React.MouseEvent, href: string, isHash: boolean) => {
+    setIsOpen(false);
+    
+    // If it's a hash link and we're on homepage, scroll to section
+    if (href.startsWith("/#") && isHomepage) {
       e.preventDefault();
-      const element = document.querySelector(href.substring(1));
+      const sectionId = href.replace("/#", "");
+      const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     }
-    setIsOpen(false);
+    // Otherwise let Next.js Link handle the navigation
   };
 
   const isActive = (href: string) => {
     if (href === "/") {
-      return pathname === "/" && activeSection === "home";
+      return isHomepage;
     }
-    return pathname === href || pathname.startsWith(href + "/");
+    return pathname === href;
   };
 
   return (
@@ -76,7 +83,7 @@ export function Navigation() {
       <motion.header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled || pathname !== "/" ? "py-3" : "py-5"
+          isScrolled || !isHomepage ? "py-3" : "py-5"
         )}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -87,13 +94,13 @@ export function Navigation() {
             className={cn(
               "relative flex items-center justify-between px-6 py-3 rounded-full",
               "transition-all duration-500 border border-transparent",
-              isScrolled || pathname !== "/"
+              isScrolled || !isHomepage
                 ? "bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_0_40px_rgba(255,255,255,0.05)]"
                 : "bg-transparent"
             )}
           >
             {/* Animated border glow */}
-            {(isScrolled || pathname !== "/") && (
+            {(isScrolled || !isHomepage) && (
               <motion.div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 animate={{
@@ -126,7 +133,7 @@ export function Navigation() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
+                    onClick={(e) => handleNavClick(e, item.href, item.isHash)}
                     className="relative px-4 py-2"
                   >
                     <motion.span
@@ -243,7 +250,7 @@ export function Navigation() {
                       >
                         <Link
                           href={item.href}
-                          onClick={(e) => handleNavClick(e, item.href)}
+                          onClick={(e) => handleNavClick(e, item.href, item.isHash)}
                           className={cn(
                             "block py-4 text-2xl font-display font-medium border-b border-white/10 transition-all",
                             active

@@ -12,7 +12,9 @@ import { ResearchSection } from "@/components/sections/research-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { TestimonialsPreview } from "@/components/sections/testimonials-preview";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
-import { SparklesCore } from "@/components/ui/sparkles";
+import SplashCursor from "@/components/SplashCursor";
+import { ClickSpark } from "@/components/effects/click-spark";
+import { NoiseOverlay } from "@/components/effects/noise-overlay";
 
 export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,23 +26,15 @@ export default function HomePage() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className="relative w-full min-h-screen">
+      {/* Global Effects */}
+      <SplashCursor />
+      <ClickSpark />
+      <NoiseOverlay />
+      
       {/* Background Effects */}
       <AnimatedBackground />
       <FloatingParticles />
-
-      {/* Sparkles Effect */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.4}
-          maxSize={1.2}
-          particleDensity={30}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
-      </div>
 
       {/* Parallax Background Layer */}
       <motion.div
@@ -53,38 +47,40 @@ export default function HomePage() {
       {/* Navigation */}
       <Navigation />
 
-      {/* Page Sections - Full Width */}
-      <section id="home" className="w-full">
-        <HeroSection />
-      </section>
-
-      <section id="about" className="w-full">
-        <AboutSection />
-      </section>
-
-      <section id="journey" className="w-full">
-        <JourneySection />
-      </section>
-
-      <section id="skills" className="w-full">
-        <SkillsSection />
-      </section>
-
-      <section id="projects" className="w-full">
-        <ProjectsSection />
-      </section>
-
-      <section id="testimonials" className="w-full">
-        <TestimonialsPreview />
-      </section>
-
-      <section id="research" className="w-full">
-        <ResearchSection />
-      </section>
-
-      <section id="contact" className="w-full">
-        <ContactSection />
-      </section>
+      {/* Page Sections */}
+      <main className="relative z-10">
+        <section id="home" className="w-full">
+          <HeroSection />
+        </section>
+        
+        <section id="about" className="w-full">
+          <AboutSection />
+        </section>
+        
+        <section id="journey" className="w-full">
+          <JourneySection />
+        </section>
+        
+        <section id="skills" className="w-full">
+          <SkillsSection />
+        </section>
+        
+        <section id="projects" className="w-full">
+          <ProjectsSection />
+        </section>
+        
+        <section id="testimonials" className="w-full">
+          <TestimonialsPreview />
+        </section>
+        
+        <section id="research" className="w-full">
+          <ResearchSection />
+        </section>
+        
+        <section id="contact" className="w-full">
+          <ContactSection />
+        </section>
+      </main>
     </div>
   );
 }
