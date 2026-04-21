@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
 import { useMousePosition } from "@/hooks/useMousePosition";
 
@@ -47,7 +47,6 @@ export function CustomCursor() {
     document.addEventListener("mousedown", handleMouseDown);
     document.addEventListener("mouseup", handleMouseUp);
 
-    // Handle hoverable elements
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const hoverable = target.closest(
@@ -67,8 +66,6 @@ export function CustomCursor() {
     };
 
     document.addEventListener("mouseover", handleElementHover);
-
-    // Hide default cursor
     document.body.style.cursor = "none";
 
     return () => {
@@ -88,10 +85,7 @@ export function CustomCursor() {
       {/* Main cursor dot */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-        }}
+        style={{ x: cursorXSpring, y: cursorYSpring }}
       >
         <motion.div
           className="relative -translate-x-1/2 -translate-y-1/2"
@@ -108,10 +102,7 @@ export function CustomCursor() {
       {/* Follower ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
-        style={{
-          x: followerXSpring,
-          y: followerYSpring,
-        }}
+        style={{ x: followerXSpring, y: followerYSpring }}
       >
         <motion.div
           className="relative -translate-x-1/2 -translate-y-1/2"
@@ -124,8 +115,8 @@ export function CustomCursor() {
           <div
             className={`rounded-full border transition-all duration-300 ${
               isHovering
-                ? "w-12 h-12 border-neon-cyan/50 bg-neon-cyan/10"
-                : "w-8 h-8 border-white/30"
+                ? "w-12 h-12 border-white/40 bg-white/5"
+                : "w-8 h-8 border-white/20"
             }`}
           />
           {cursorText && (
@@ -144,20 +135,17 @@ export function CustomCursor() {
       {/* Glow effect on hover */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9997]"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-        }}
+        style={{ x: cursorXSpring, y: cursorYSpring }}
       >
         <motion.div
           className="relative -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: isHovering ? 1 : 0,
-            opacity: isHovering ? 0.3 : 0,
+            opacity: isHovering ? 0.15 : 0,
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="w-32 h-32 rounded-full bg-gradient-to-r from-neon-cyan/20 to-neon-purple/20 blur-2xl" />
+          <div className="w-32 h-32 rounded-full bg-white/20 blur-2xl" />
         </motion.div>
       </motion.div>
     </>

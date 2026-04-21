@@ -44,12 +44,12 @@ export function GlowButton({
   const baseStyles = cn(
     "relative inline-flex items-center justify-center gap-2 font-display font-medium",
     "transition-all duration-300 overflow-hidden group",
-    "focus:outline-none focus:ring-2 focus:ring-neon-cyan/50",
+    "focus:outline-none focus:ring-2 focus:ring-white/20",
     {
-      "bg-gradient-to-r from-neon-blue to-neon-cyan text-black":
+      "bg-white text-black hover:bg-mist":
         variant === "primary",
       "bg-white/5 text-white hover:bg-white/10": variant === "secondary",
-      "bg-transparent border border-white/20 text-white hover:border-neon-cyan/50":
+      "bg-transparent border border-white/20 text-white hover:border-white/40 hover:bg-white/5":
         variant === "outline",
       "px-4 py-2 text-sm rounded-full": size === "sm",
       "px-6 py-3 text-base rounded-full": size === "md",
@@ -62,10 +62,10 @@ export function GlowButton({
     <>
       {/* Glow effect */}
       <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background: `radial-gradient(circle at ${mousePosition.x + 50}% ${mousePosition.y + 50}%, 
-            ${variant === "primary" ? "rgba(255,255,255,0.3)" : "rgba(0,240,255,0.2)"} 0%, 
+            ${variant === "primary" ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.1)"} 0%, 
             transparent 60%)`,
         }}
       />
@@ -77,12 +77,12 @@ export function GlowButton({
           isHovered
             ? {
                 boxShadow: [
-                  "0 0 20px rgba(0,240,255,0.3)",
-                  "0 0 40px rgba(0,240,255,0.5)",
-                  "0 0 20px rgba(0,240,255,0.3)",
+                  "0 0 20px rgba(255,255,255,0.1)",
+                  "0 0 40px rgba(255,255,255,0.2)",
+                  "0 0 20px rgba(255,255,255,0.1)",
                 ],
               }
-            : { boxShadow: "0 0 0px rgba(0,240,255,0)" }
+            : { boxShadow: "0 0 0px rgba(255,255,255,0)" }
         }
         transition={{ duration: 1.5, repeat: Infinity }}
       />
@@ -93,7 +93,7 @@ export function GlowButton({
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-neon-cyan rounded-full"
+              className="absolute w-1 h-1 bg-white rounded-full"
               initial={{ opacity: 1, scale: 0 }}
               animate={{
                 opacity: 0,

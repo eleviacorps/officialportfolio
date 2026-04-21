@@ -9,6 +9,7 @@ import { ProjectsPreview } from "@/components/sections/projects-preview";
 import { TestimonialsPreview } from "@/components/sections/testimonials-preview";
 import { ContactCTA } from "@/components/sections/contact-cta";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,13 +25,26 @@ export default function HomePage() {
       {/* Background Effects */}
       <AnimatedBackground />
       <FloatingParticles />
+      
+      {/* Sparkles Effect */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.4}
+          maxSize={1.2}
+          particleDensity={30}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
+      </div>
 
       {/* Parallax Background Layer */}
       <motion.div
-        className="fixed inset-0 -z-20 pointer-events-none"
+        className="fixed inset-0 -z-30 pointer-events-none"
         style={{ y: backgroundY }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-void/50 to-void" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
       </motion.div>
 
       {/* Page Sections */}

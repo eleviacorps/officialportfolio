@@ -37,11 +37,11 @@ export function HeroSection() {
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Gradient Orbs */}
+        {/* Gradient Orbs - monochromatic */}
         <motion.div
           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(0,240,255,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)",
             filter: "blur(60px)",
             x: mousePosition.x * 2,
             y: mousePosition.y * 2,
@@ -50,7 +50,7 @@ export function HeroSection() {
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(184,41,221,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)",
             filter: "blur(60px)",
             x: mousePosition.x * -1.5,
             y: mousePosition.y * -1.5,
@@ -73,14 +73,14 @@ export function HeroSection() {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-neon-cyan/30 rounded-full"
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
             initial={{
               x: `${Math.random() * 100}%`,
               y: `${Math.random() * 100}%`,
             }}
             animate={{
               y: [0, -30, 0],
-              opacity: [0.2, 0.6, 0.2],
+              opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
               duration: 3 + Math.random() * 2,
@@ -104,12 +104,12 @@ export function HeroSection() {
           className="mb-8"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-white/70">
-            <span className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse" />
+            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
             Available for Projects
           </span>
         </motion.div>
 
-        {/* Main Heading with Typewriter Effect */}
+        {/* Main Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ export function HeroSection() {
             <span className="block text-white">Creative</span>
             <span className="block text-gradient mt-2">Developer</span>
             <motion.span
-              className="block text-white/40 mt-2 text-3xl sm:text-4xl md:text-5xl font-normal"
+              className="block text-white/30 mt-2 text-3xl sm:text-4xl md:text-5xl font-normal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
@@ -135,7 +135,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="max-w-2xl mx-auto text-lg sm:text-xl text-white/60 mb-12 leading-relaxed"
+          className="max-w-2xl mx-auto text-lg sm:text-xl text-white/50 mb-12 leading-relaxed"
         >
           Crafting immersive digital experiences that blend cutting-edge technology
           with stunning visual design. Transforming ideas into reality.
@@ -180,11 +180,11 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3 + index * 0.1 }}
             >
-              <social.icon className="w-5 h-5 text-white/60 group-hover:text-neon-cyan transition-colors" />
+              <social.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
               <motion.div
                 className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
                 style={{
-                  boxShadow: "0 0 20px rgba(0,240,255,0.3)",
+                  boxShadow: "0 0 20px rgba(255,255,255,0.1)",
                 }}
                 transition={{ duration: 0.3 }}
               />
@@ -218,11 +218,11 @@ export function HeroSection() {
         className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:block"
       >
         <div className="flex flex-col gap-8">
-          <div className="w-px h-20 bg-gradient-to-b from-transparent via-neon-cyan/30 to-transparent" />
-          <span className="text-xs text-white/30 -rotate-90 whitespace-nowrap origin-center translate-y-8">
+          <div className="w-px h-20 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+          <span className="text-xs text-white/20 -rotate-90 whitespace-nowrap origin-center translate-y-8">
             SCROLL TO EXPLORE
           </span>
-          <div className="w-px h-20 bg-gradient-to-b from-transparent via-neon-cyan/30 to-transparent" />
+          <div className="w-px h-20 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         </div>
       </motion.div>
     </section>

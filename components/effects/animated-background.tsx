@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Animated gradient orbs */}
+      {/* Animated gradient orbs - monochromatic */}
       <motion.div
-        className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-neon-blue/10 blur-[120px]"
+        className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-white/[0.02] blur-[120px]"
         animate={{
           x: [0, 50, 0],
           y: [0, 30, 0],
@@ -21,7 +21,7 @@ export function AnimatedBackground() {
         }}
       />
       <motion.div
-        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-neon-purple/10 blur-[100px]"
+        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-white/[0.015] blur-[100px]"
         animate={{
           x: [0, -40, 0],
           y: [0, -50, 0],
@@ -34,7 +34,7 @@ export function AnimatedBackground() {
         }}
       />
       <motion.div
-        className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-neon-magenta/5 blur-[80px]"
+        className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-white/[0.01] blur-[80px]"
         animate={{
           x: [0, -60, 0],
           y: [0, 40, 0],
@@ -93,10 +93,7 @@ export function FloatingParticles() {
       vy: number;
       size: number;
       alpha: number;
-      color: string;
     }> = [];
-
-    const colors = ["#00F0FF", "#B829DD", "#FF0080", "#00E5FF"];
 
     for (let i = 0; i < 50; i++) {
       particles.push({
@@ -105,8 +102,7 @@ export function FloatingParticles() {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.5 + 0.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: Math.random() * 0.3 + 0.1,
       });
     }
 
@@ -123,7 +119,7 @@ export function FloatingParticles() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        ctx.fillStyle = "#FFFFFF";
         ctx.globalAlpha = p.alpha;
         ctx.fill();
       });

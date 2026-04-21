@@ -43,19 +43,27 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        // Custom dark theme colors
-        void: "#030303",
-        abyss: "#0B0B10",
-        midnight: "#12121A",
-        eclipse: "#1A1A25",
-        // Neon accents
-        neon: {
-          blue: "#00F0FF",
-          cyan: "#00E5FF",
-          purple: "#B829DD",
-          magenta: "#FF0080",
-          violet: "#8B5CF6",
-          pink: "#EC4899",
+        // Monochromatic theme
+        void: "#000000",
+        abyss: "#0A0A0A",
+        midnight: "#111111",
+        eclipse: "#1A1A1A",
+        charcoal: "#222222",
+        graphite: "#2A2A2A",
+        steel: "#333333",
+        silver: "#444444",
+        ash: "#666666",
+        smoke: "#888888",
+        fog: "#AAAAAA",
+        mist: "#CCCCCC",
+        cloud: "#EEEEEE",
+        snow: "#F5F5F5",
+        // Accent (subtle white/silver gradients)
+        glow: {
+          light: "#FFFFFF",
+          dim: "#DDDDDD",
+          soft: "#BBBBBB",
+          subtle: "#999999",
         },
       },
       borderRadius: {
@@ -73,14 +81,11 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "float": "float 6s ease-in-out infinite",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "glow": "glow 2s ease-in-out infinite alternate",
         "shimmer": "shimmer 2s linear infinite",
-        "spin-slow": "spin 8s linear infinite",
         "gradient": "gradient 8s linear infinite",
         "blob": "blob 7s infinite",
         "marquee": "marquee 25s linear infinite",
         "marquee-reverse": "marquee-reverse 25s linear infinite",
-        "spotlight": "spotlight 2s ease .75s 1 forwards",
       },
       keyframes: {
         "accordion-down": {
@@ -94,10 +99,6 @@ const config: Config = {
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-20px)" },
-        },
-        glow: {
-          "0%": { boxShadow: "0 0 5px #00F0FF, 0 0 10px #00F0FF, 0 0 15px #00F0FF" },
-          "100%": { boxShadow: "0 0 10px #00F0FF, 0 0 20px #00F0FF, 0 0 30px #00F0FF" },
         },
         shimmer: {
           "0%": { backgroundPosition: "-1000px 0" },
@@ -120,16 +121,6 @@ const config: Config = {
         "marquee-reverse": {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0%)" },
-        },
-        spotlight: {
-          "0%": {
-            opacity: "0",
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate(-50%,-40%) scale(1)",
-          },
         },
       },
       backgroundImage: {

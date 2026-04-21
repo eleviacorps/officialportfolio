@@ -7,7 +7,6 @@ interface Spark {
   id: number;
   x: number;
   y: number;
-  color: string;
 }
 
 export function ClickSpark() {
@@ -20,7 +19,6 @@ export function ClickSpark() {
   }, []);
 
   const createSpark = useCallback((x: number, y: number) => {
-    const colors = ["#00F0FF", "#B829DD", "#FF0080", "#00E5FF", "#EC4899"];
     const newSparks: Spark[] = [];
 
     for (let i = 0; i < 8; i++) {
@@ -28,7 +26,6 @@ export function ClickSpark() {
         id: sparkId.current++,
         x: x + (Math.random() - 0.5) * 20,
         y: y + (Math.random() - 0.5) * 20,
-        color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
 
@@ -76,10 +73,9 @@ export function ClickSpark() {
             style={{ left: 0, top: 0 }}
           >
             <div
-              className="w-full h-full rounded-full"
+              className="w-full h-full rounded-full bg-white"
               style={{
-                backgroundColor: spark.color,
-                boxShadow: `0 0 10px ${spark.color}, 0 0 20px ${spark.color}`,
+                boxShadow: "0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3)",
               }}
             />
           </motion.div>

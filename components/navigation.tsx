@@ -23,7 +23,6 @@ export function Navigation() {
   const { isScrolled } = useScrollProgress();
   const pathname = usePathname();
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -57,7 +56,7 @@ export function Navigation() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <span className="text-gradient">AC</span>
+                <span className="text-white">AC</span>
               </motion.div>
             </Link>
 
@@ -95,7 +94,7 @@ export function Navigation() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-neon-blue to-neon-cyan opacity-90 group-hover:opacity-100 transition-opacity" />
+                <span className="absolute inset-0 bg-white opacity-90 group-hover:opacity-100 transition-opacity" />
                 <span className="relative text-black">Let&apos;s Talk</span>
               </motion.a>
             </div>
@@ -171,7 +170,7 @@ export function Navigation() {
                           href={item.href}
                           className={cn(
                             "block py-4 text-2xl font-display font-medium border-b border-white/10 transition-colors",
-                            isActive ? "text-neon-cyan" : "text-white/70 hover:text-white"
+                            isActive ? "text-white" : "text-white/70 hover:text-white"
                           )}
                         >
                           {item.label}
@@ -184,7 +183,7 @@ export function Navigation() {
                 <div className="mt-auto">
                   <motion.a
                     href="/contact"
-                    className="block w-full py-4 text-center text-lg font-medium rounded-full bg-gradient-to-r from-neon-blue to-neon-cyan text-black"
+                    className="block w-full py-4 text-center text-lg font-medium rounded-full bg-white text-black"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
