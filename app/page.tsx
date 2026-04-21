@@ -2,12 +2,14 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Navigation } from "@/components/navigation";
 import { HeroSection } from "@/components/sections/hero-section";
-import { AboutPreview } from "@/components/sections/about-preview";
-import { ExpertisePreview } from "@/components/sections/expertise-preview";
-import { ProjectsPreview } from "@/components/sections/projects-preview";
-import { TestimonialsPreview } from "@/components/sections/testimonials-preview";
-import { ContactCTA } from "@/components/sections/contact-cta";
+import { AboutSection } from "@/components/sections/about-section";
+import { JourneySection } from "@/components/sections/journey-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
+import { ResearchSection } from "@/components/sections/research-section";
+import { ContactSection } from "@/components/sections/contact-section";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 import { SparklesCore } from "@/components/ui/sparkles";
 
@@ -21,7 +23,7 @@ export default function HomePage() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative w-full">
       {/* Background Effects */}
       <AnimatedBackground />
       <FloatingParticles />
@@ -47,13 +49,37 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
       </motion.div>
 
-      {/* Page Sections */}
-      <HeroSection />
-      <AboutPreview />
-      <ExpertisePreview />
-      <ProjectsPreview />
-      <TestimonialsPreview />
-      <ContactCTA />
+      {/* Navigation */}
+      <Navigation />
+
+      {/* Page Sections - Full Width */}
+      <section id="home" className="w-full">
+        <HeroSection />
+      </section>
+      
+      <section id="about" className="w-full">
+        <AboutSection />
+      </section>
+      
+      <section id="journey" className="w-full">
+        <JourneySection />
+      </section>
+      
+      <section id="skills" className="w-full">
+        <SkillsSection />
+      </section>
+      
+      <section id="projects" className="w-full">
+        <ProjectsSection />
+      </section>
+      
+      <section id="research" className="w-full">
+        <ResearchSection />
+      </section>
+      
+      <section id="contact" className="w-full">
+        <ContactSection />
+      </section>
     </div>
   );
 }

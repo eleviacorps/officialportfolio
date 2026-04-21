@@ -20,15 +20,18 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Chen | Creative Developer & AI Engineer",
+  title: "Rehan Raza | AI Researcher & Automation Engineer",
   description:
-    "Awwwards-worthy portfolio showcasing premium web experiences, AI solutions, and interactive digital art.",
+    "Building intelligent systems, automation pipelines, AI research projects, web experiences, and advanced developer tooling.",
   keywords: [
-    "developer",
-    "portfolio",
-    "react",
-    "next.js",
-    "AI",
+    "AI Researcher",
+    "Automation Engineer",
+    "Full-Stack Developer",
+    "Quant Systems",
+    "AI Fine-tuning",
+    "Developer Tools",
+    "Next.js",
+    "Python",
     "web development",
   ],
 };
@@ -49,13 +52,13 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <div className="relative min-h-screen overflow-x-hidden bg-void">
+          <div className="relative min-h-screen w-full overflow-x-hidden bg-void">
             <SplashCursor />
             <ClickSpark />
             <NoiseOverlay />
             <TracingBeam>
               <PageTransition>
-                <main className="relative z-10">{children}</main>
+                <main className="relative z-10 w-full">{children}</main>
               </PageTransition>
             </TracingBeam>
           </div>
