@@ -14,21 +14,18 @@ const socialLinks = [
     label: "GitHub",
     value: "@alexchen",
     href: "https://github.com",
-    color: "from-gray-400 to-gray-600",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
     value: "Alex Chen",
     href: "https://linkedin.com",
-    color: "from-blue-400 to-blue-600",
   },
   {
     icon: Twitter,
     label: "Twitter",
     value: "@alexchendev",
     href: "https://twitter.com",
-    color: "from-sky-400 to-sky-600",
   },
 ];
 
@@ -45,7 +42,6 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formState);
   };
 
@@ -58,7 +54,7 @@ export default function ContactPage() {
       <section className="relative min-h-[40vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Get In Touch
             </span>
           </Reveal>
@@ -68,7 +64,7 @@ export default function ContactPage() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+            <p className="text-xl text-white/50 max-w-2xl mx-auto">
               Have a project in mind or just want to chat? I&apos;m always open to new opportunities.
             </p>
           </Reveal>
@@ -92,18 +88,18 @@ export default function ContactPage() {
                   <motion.a
                     href="mailto:hello@alexchen.dev"
                     className="flex items-center gap-4 p-4 rounded-xl glass group cursor-pointer"
-                    whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.08)" }}
+                    whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.05)" }}
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-cyan to-neon-blue flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center">
                       <Mail className="w-5 h-5 text-black" />
                     </div>
                     <div className="flex-1">
                       <div className="text-white/50 text-sm">Email</div>
-                      <div className="text-white group-hover:text-neon-cyan transition-colors">
+                      <div className="text-white group-hover:text-gradient transition-colors">
                         hello@alexchen.dev
                       </div>
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-white/30 group-hover:text-neon-cyan transition-colors" />
+                    <ArrowUpRight className="w-5 h-5 text-white/30 group-hover:text-white transition-colors" />
                   </motion.a>
                 </Reveal>
 
@@ -112,7 +108,7 @@ export default function ContactPage() {
                     className="flex items-center gap-4 p-4 rounded-xl glass"
                     whileHover={{ x: 8 }}
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple to-neon-magenta flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center">
                       <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -138,14 +134,9 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 rounded-xl glass group cursor-pointer"
-                      whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.08)" }}
+                      whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.05)" }}
                     >
-                      <div
-                        className={cn(
-                          "w-10 h-10 rounded-lg bg-gradient-to-br flex items-center justify-center",
-                          link.color
-                        )}
-                      >
+                      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                         <link.icon className="w-4 h-4 text-white" />
                       </div>
                       <div className="flex-1">
@@ -167,8 +158,8 @@ export default function ContactPage() {
                   className="glass rounded-3xl p-8 relative overflow-hidden"
                 >
                   {/* Background Glow */}
-                  <div className="absolute -top-32 -right-32 w-64 h-64 bg-neon-cyan/10 rounded-full blur-[100px]" />
-                  <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-neon-purple/10 rounded-full blur-[100px]" />
+                  <div className="absolute -top-32 -right-32 w-64 h-64 bg-white/5 rounded-full blur-[100px]" />
+                  <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-white/5 rounded-full blur-[100px]" />
 
                   <div className="relative space-y-6">
                     <div className="grid sm:grid-cols-2 gap-6">
@@ -178,7 +169,7 @@ export default function ContactPage() {
                           className={cn(
                             "absolute left-4 transition-all duration-300 pointer-events-none",
                             focusedField === "name" || formState.name
-                              ? "-top-2 text-xs text-neon-cyan"
+                              ? "-top-2 text-xs text-white"
                               : "top-4 text-white/50"
                           )}
                         >
@@ -192,7 +183,7 @@ export default function ContactPage() {
                           }
                           onFocus={() => setFocusedField("name")}
                           onBlur={() => setFocusedField(null)}
-                          className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-cyan/50 transition-colors"
+                          className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 transition-colors"
                         />
                       </div>
 
@@ -202,7 +193,7 @@ export default function ContactPage() {
                           className={cn(
                             "absolute left-4 transition-all duration-300 pointer-events-none",
                             focusedField === "email" || formState.email
-                              ? "-top-2 text-xs text-neon-cyan"
+                              ? "-top-2 text-xs text-white"
                               : "top-4 text-white/50"
                           )}
                         >
@@ -216,7 +207,7 @@ export default function ContactPage() {
                           }
                           onFocus={() => setFocusedField("email")}
                           onBlur={() => setFocusedField(null)}
-                          className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-cyan/50 transition-colors"
+                          className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 transition-colors"
                         />
                       </div>
                     </div>
@@ -227,7 +218,7 @@ export default function ContactPage() {
                         className={cn(
                           "absolute left-4 transition-all duration-300 pointer-events-none",
                           focusedField === "subject" || formState.subject
-                            ? "-top-2 text-xs text-neon-cyan"
+                            ? "-top-2 text-xs text-white"
                             : "top-4 text-white/50"
                         )}
                       >
@@ -241,7 +232,7 @@ export default function ContactPage() {
                         }
                         onFocus={() => setFocusedField("subject")}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-cyan/50 transition-colors"
+                        className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 transition-colors"
                       />
                     </div>
 
@@ -251,7 +242,7 @@ export default function ContactPage() {
                         className={cn(
                           "absolute left-4 transition-all duration-300 pointer-events-none",
                           focusedField === "message" || formState.message
-                            ? "-top-2 text-xs text-neon-cyan"
+                            ? "-top-2 text-xs text-white"
                             : "top-4 text-white/50"
                         )}
                       >
@@ -265,14 +256,14 @@ export default function ContactPage() {
                         onFocus={() => setFocusedField("message")}
                         onBlur={() => setFocusedField(null)}
                         rows={6}
-                        className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-neon-cyan/50 transition-colors resize-none"
+                        className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-white/30 transition-colors resize-none"
                       />
                     </div>
 
                     {/* Submit Button */}
                     <motion.button
                       type="submit"
-                      className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-display font-bold text-lg flex items-center justify-center gap-2 group"
+                      className="w-full py-4 px-6 rounded-xl bg-white text-black font-display font-bold text-lg flex items-center justify-center gap-2 group"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >

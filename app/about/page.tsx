@@ -6,6 +6,10 @@ import { Code2, Lightbulb, Users, Zap, Target, Heart } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
+import { Timeline } from "@/components/ui/timeline";
+import LogoLoop from "@/components/LogoLoop";
+import GradualBlur from "@/components/GradualBlur";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const milestones = [
   {
@@ -53,6 +57,11 @@ const values = [
   { title: "Growth", desc: "Never stop learning" },
 ];
 
+const techLogos = [
+  "React", "Next.js", "TypeScript", "Node.js", "Python", "GraphQL",
+  "PostgreSQL", "Redis", "Docker", "AWS", "TensorFlow", "OpenAI",
+];
+
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -61,6 +70,18 @@ export default function AboutPage() {
   });
 
   const pathLength = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  const timelineData = milestones.map((milestone) => ({
+    title: milestone.year,
+    content: (
+      <div>
+        <h3 className="text-xl font-display font-bold text-white mb-2">
+          {milestone.title}
+        </h3>
+        <p className="text-white/60">{milestone.description}</p>
+      </div>
+    ),
+  }));
 
   return (
     <div ref={containerRef} className="relative">
@@ -71,7 +92,7 @@ export default function AboutPage() {
       <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               About Me
             </span>
           </Reveal>
@@ -82,7 +103,7 @@ export default function AboutPage() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
               A passionate developer and designer creating immersive digital experiences
               that blend creativity with cutting-edge technology.
             </p>
@@ -90,27 +111,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Logo Loop */}
+      <section className="py-12 overflow-hidden border-y border-white/10">
+        <div className="flex gap-12 animate-marquee">
+          {[...techLogos, ...techLogos].map((tech, index) => (
+            <span key={index} className="text-white/40 font-mono text-sm whitespace-nowrap">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Story Section with Gradual Blur */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <Reveal>
-              <div className="relative aspect-square rounded-3xl overflow-hidden glass">
-                <div className="absolute inset-0 bg-gradient-to-br from-midnight via-eclipse to-midnight flex items-center justify-center">
-                  <span className="text-8xl font-display font-bold text-gradient">AC</span>
+              <GradualBlur
+                direction="left"
+                blurStart={0}
+                blurEnd={10}
+                className="rounded-3xl overflow-hidden"
+              >
+                <div className="relative aspect-square rounded-3xl overflow-hidden glass">
+                  <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-graphite to-charcoal flex items-center justify-center">
+                    <span className="text-8xl font-display font-bold text-white/10">AC</span>
+                  </div>
+                  {/* Animated Border */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl"
+                    style={{
+                      background: "linear-gradient(90deg, #333, #444, #555, #333)",
+                      backgroundSize: "300% 100%",
+                    }}
+                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
+                  <div className="absolute inset-[2px] rounded-3xl bg-abyss" />
                 </div>
-                {/* Animated Border */}
-                <motion.div
-                  className="absolute inset-0 rounded-3xl"
-                  style={{
-                    background: "linear-gradient(90deg, #00F0FF, #B829DD, #FF0080, #00F0FF)",
-                    backgroundSize: "300% 100%",
-                  }}
-                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-[2px] rounded-3xl bg-abyss" />
-              </div>
+              </GradualBlur>
             </Reveal>
 
             <div>
@@ -142,7 +181,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Section with Glowing Effect */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -154,15 +193,26 @@ export default function AboutPage() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value) => (
               <StaggerItem key={value.title}>
-                <motion.div
-                  className="p-6 rounded-2xl glass text-center group cursor-pointer"
-                  whileHover={{ y: -8, scale: 1.02 }}
-                >
-                  <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-gradient transition-all">
-                    {value.title}
-                  </h3>
-                  <p className="text-white/50 text-sm">{value.desc}</p>
-                </motion.div>
+                <div className="relative">
+                  <GlowingEffect
+                    spread={40}
+                    glow={true}
+                    disabled={false}
+                    proximity={64}
+                    inactiveZone={0.01}
+                    borderWidth={1}
+                    variant="white"
+                  />
+                  <motion.div
+                    className="p-6 rounded-2xl glass text-center group cursor-pointer relative"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                  >
+                    <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-gradient transition-all">
+                      {value.title}
+                    </h3>
+                    <p className="text-white/50 text-sm">{value.desc}</p>
+                  </motion.div>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -177,55 +227,7 @@ export default function AboutPage() {
               My Journey
             </h2>
           </Reveal>
-
-          <div className="relative">
-            {/* Progress Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/10" />
-            <motion.div
-              className="absolute left-8 md:left-1/2 top-0 w-px bg-gradient-to-b from-neon-cyan to-neon-purple origin-top"
-              style={{ height: pathLength, translateX: "-50%" }}
-            />
-
-            {/* Timeline Items */}
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <Reveal key={milestone.year} delay={0.1 * index}>
-                  <motion.div
-                    className={`relative flex items-start gap-8 ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    {/* Content */}
-                    <div className={`flex-1 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                      <motion.div
-                        className="inline-flex items-center gap-3 mb-2"
-                        whileHover={{ x: index % 2 === 0 ? -10 : 10 }}
-                      >
-                        <span className="text-3xl font-display font-bold text-gradient">
-                          {milestone.year}
-                        </span>
-                        <milestone.icon className="w-5 h-5 text-neon-cyan" />
-                      </motion.div>
-                      <h3 className="text-xl font-display font-bold text-white mb-2">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-white/60">{milestone.description}</p>
-                    </div>
-
-                    {/* Dot */}
-                    <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-neon-cyan shadow-[0_0_20px_rgba(0,240,255,0.5)]" />
-
-                    {/* Spacer for alternating layout */}
-                    <div className="hidden md:block flex-1" />
-                  </motion.div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <Timeline data={timelineData} />
         </div>
       </section>
 

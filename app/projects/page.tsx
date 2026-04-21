@@ -6,6 +6,7 @@ import { ExternalLink, Github, Layers, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { GlowButton } from "@/components/effects/glow-button";
 import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
+import { PinContainer } from "@/components/ui/3d-pin";
 import { cn } from "@/lib/utils";
 
 const categories = ["All", "Web App", "AI/ML", "Mobile", "Open Source"];
@@ -21,7 +22,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: true,
-    color: "from-neon-cyan to-neon-blue",
   },
   {
     id: 2,
@@ -33,7 +33,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: true,
-    color: "from-neon-purple to-neon-magenta",
   },
   {
     id: 3,
@@ -45,7 +44,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: true,
-    color: "from-neon-magenta to-neon-pink",
   },
   {
     id: 4,
@@ -57,7 +55,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: false,
-    color: "from-neon-blue to-neon-cyan",
   },
   {
     id: 5,
@@ -69,7 +66,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: false,
-    color: "from-neon-violet to-neon-purple",
   },
   {
     id: 6,
@@ -81,7 +77,6 @@ const projects = [
     github: "#",
     live: "#",
     featured: false,
-    color: "from-neon-pink to-neon-magenta",
   },
 ];
 
@@ -105,7 +100,7 @@ export default function ProjectsPage() {
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Portfolio
             </span>
           </Reveal>
@@ -115,19 +110,19 @@ export default function ProjectsPage() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+            <p className="text-xl text-white/50 max-w-2xl mx-auto">
               A selection of my recent work across web, mobile, and AI development
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Featured Projects */}
+      {/* Featured Projects with 3D Pin */}
       <section className="relative py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2 className="text-2xl font-display font-bold text-white mb-12 flex items-center gap-3">
-              <Layers className="w-6 h-6 text-neon-cyan" />
+              <Layers className="w-6 h-6 text-white/60" />
               Featured Work
             </h2>
           </Reveal>
@@ -135,7 +130,34 @@ export default function ProjectsPage() {
           <div className="grid lg:grid-cols-3 gap-8 mb-20">
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={0.1 * index}>
-                <ProjectCard project={project} />
+                <PinContainer
+                  title={project.title}
+                  href={project.live}
+                >
+                  <div className="flex flex-col p-4 tracking-tight w-[280px] h-[320px]">
+                    <h3 className="font-bold text-white text-xl mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/50 text-sm mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex-1 w-full rounded-lg bg-gradient-to-br from-charcoal to-graphite flex items-center justify-center">
+                      <span className="text-4xl font-bold text-white/20">
+                        {project.title.charAt(0)}
+                      </span>
+                    </div>
+                  </div>
+                </PinContainer>
               </Reveal>
             ))}
           </div>
@@ -144,7 +166,7 @@ export default function ProjectsPage() {
           <Reveal>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
               <h2 className="text-2xl font-display font-bold text-white flex items-center gap-3">
-                <span className="w-2 h-2 bg-neon-cyan rounded-full" />
+                <span className="w-2 h-2 bg-white rounded-full" />
                 All Projects
               </h2>
 
@@ -156,7 +178,7 @@ export default function ProjectsPage() {
                     className={cn(
                       "px-4 py-2 rounded-full text-sm font-medium transition-all",
                       activeCategory === category
-                        ? "bg-gradient-to-r from-neon-cyan to-neon-blue text-black"
+                        ? "bg-white text-black"
                         : "glass text-white/60 hover:text-white hover:bg-white/10"
                     )}
                     onClick={() => setActiveCategory(category)}
@@ -182,7 +204,35 @@ export default function ProjectsPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <ProjectCard project={project} compact />
+                  <PinContainer
+                    title={project.title}
+                    href={project.live}
+                    className="w-full"
+                  >
+                    <div className="flex flex-col p-4 tracking-tight w-full h-[300px]">
+                      <h3 className="font-bold text-white text-xl mb-2">
+                        {project.title}
+                      </h3>
+                      <p className="text-white/50 text-sm mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 text-xs rounded bg-white/10 text-white/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex-1 w-full rounded-lg bg-gradient-to-br from-charcoal to-graphite flex items-center justify-center">
+                        <span className="text-4xl font-bold text-white/20">
+                          {project.title.charAt(0)}
+                        </span>
+                      </div>
+                    </div>
+                  </PinContainer>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -199,7 +249,7 @@ export default function ProjectsPage() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="text-white/60 mb-8">
+            <p className="text-white/50 mb-8">
               I&apos;m always interested in hearing about new projects and opportunities.
             </p>
           </Reveal>
@@ -211,111 +261,5 @@ export default function ProjectsPage() {
         </div>
       </section>
     </div>
-  );
-}
-
-interface ProjectCardProps {
-  project: (typeof projects)[0];
-  compact?: boolean;
-}
-
-function ProjectCard({ project, compact }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      className={cn(
-        "group relative rounded-2xl overflow-hidden glass cursor-pointer",
-        compact ? "h-full" : "h-full"
-      )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -8 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      {/* Image */}
-      <div className={cn("relative overflow-hidden", compact ? "aspect-video" : "aspect-[4/3]")}>
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-midnight to-eclipse flex items-center justify-center"
-          animate={{ scale: isHovered ? 1.1 : 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="text-6xl font-display font-bold text-white/10">
-            {project.title.charAt(0)}
-          </span>
-        </motion.div>
-
-        {/* Overlay */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"
-          initial={{ opacity: 0.6 }}
-          animate={{ opacity: isHovered ? 0.9 : 0.6 }}
-        />
-
-        {/* Category Badge */}
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 text-xs font-medium rounded-full bg-white/10 backdrop-blur-md text-white/80 border border-white/10">
-            {project.category}
-          </span>
-        </div>
-
-        {/* Links */}
-        <motion.div
-          className="absolute top-4 right-4 flex gap-2"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -10 }}
-        >
-          <motion.a
-            href={project.github}
-            className="p-2 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Github className="w-4 h-4" />
-          </motion.a>
-          <motion.a
-            href={project.live}
-            className="p-2 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <ExternalLink className="w-4 h-4" />
-          </motion.a>
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-gradient transition-all">
-          {project.title}
-        </h3>
-        <p className="text-white/60 text-sm mb-4 line-clamp-2">{project.description}</p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className={cn(
-                "px-2 py-1 text-xs rounded-md bg-gradient-to-r text-white/90",
-                project.color
-              )}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Glow Effect */}
-      <motion.div
-        className={cn(
-          "absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10",
-          "bg-gradient-to-r",
-          project.color
-        )}
-        style={{ filter: "blur(30px)", transform: "scale(0.9)" }}
-      />
-    </motion.div>
   );
 }

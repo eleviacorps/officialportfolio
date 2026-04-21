@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navigation } from "@/components/navigation";
-import { CustomCursor } from "@/components/effects/custom-cursor";
+import SplashCursor from "@/components/SplashCursor";
 import { ClickSpark } from "@/components/effects/click-spark";
 import { NoiseOverlay } from "@/components/effects/noise-overlay";
 import { PageTransition } from "@/components/motion/page-transition";
+import { TracingBeam } from "@/components/ui/tracing-beam";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({
@@ -50,13 +50,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="relative min-h-screen overflow-x-hidden bg-void">
-            <CustomCursor />
+            <SplashCursor />
             <ClickSpark />
             <NoiseOverlay />
-            <Navigation />
-            <PageTransition>
-              <main className="relative z-10">{children}</main>
-            </PageTransition>
+            <TracingBeam>
+              <PageTransition>
+                <main className="relative z-10">{children}</main>
+              </PageTransition>
+            </TracingBeam>
           </div>
         </ThemeProvider>
       </body>

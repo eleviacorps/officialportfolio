@@ -4,6 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { GlowButton } from "@/components/effects/glow-button";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import CurvedLoop from "@/components/CurvedLoop";
+
+const words = [
+  { text: "Creative", className: "text-white" },
+  { text: "Developer", className: "text-white" },
+];
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -91,6 +98,15 @@ export function HeroSection() {
         ))}
       </div>
 
+      {/* Curved Loop Text */}
+      <div className="absolute top-20 left-0 right-0 overflow-hidden opacity-10">
+        <CurvedLoop
+          items={["CREATIVE DEVELOPER", "AI ENGINEER", "FULL STACK", "UI/UX DESIGNER", "CREATIVE DEVELOPER", "AI ENGINEER", "FULL STACK", "UI/UX DESIGNER"]}
+          speed={0.5}
+          className="text-sm font-mono text-white/60"
+        />
+      </div>
+
       {/* Main Content */}
       <motion.div
         className="relative z-10 max-w-6xl mx-auto px-6 text-center"
@@ -109,32 +125,32 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Main Heading */}
+        {/* Main Heading with Typewriter */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-6"
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight">
-            <span className="block text-white">Creative</span>
-            <span className="block text-gradient mt-2">Developer</span>
-            <motion.span
-              className="block text-white/30 mt-2 text-3xl sm:text-4xl md:text-5xl font-normal"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-            >
-              & AI Engineer
-            </motion.span>
-          </h1>
+          <TypewriterEffect 
+            words={words}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight justify-center"
+          />
+          <motion.span
+            className="block text-white/30 mt-4 text-3xl sm:text-4xl md:text-5xl font-normal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 0.8 }}
+          >
+            & AI Engineer
+          </motion.span>
         </motion.div>
 
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 1 }}
           className="max-w-2xl mx-auto text-lg sm:text-xl text-white/50 mb-12 leading-relaxed"
         >
           Crafting immersive digital experiences that blend cutting-edge technology
@@ -145,7 +161,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <GlowButton href="/projects" size="lg" icon={<span>→</span>}>
@@ -160,7 +176,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
           className="flex items-center justify-center gap-6"
         >
           {[
@@ -178,16 +194,9 @@ export function HeroSection() {
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 + index * 0.1 }}
+              transition={{ delay: 1.5 + index * 0.1 }}
             >
               <social.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-              <motion.div
-                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
-                style={{
-                  boxShadow: "0 0 20px rgba(255,255,255,0.1)",
-                }}
-                transition={{ duration: 0.3 }}
-              />
             </motion.a>
           ))}
         </motion.div>
@@ -197,7 +206,7 @@ export function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.8 }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2"
       >
         <motion.div
@@ -214,7 +223,7 @@ export function HeroSection() {
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 1.8, duration: 0.8 }}
         className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:block"
       >
         <div className="flex flex-col gap-8">
