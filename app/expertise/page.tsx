@@ -11,27 +11,58 @@ import {
   Wrench,
   Sparkles,
   ChevronRight,
+  ArrowLeft,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
-import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const expertiseData = [
+  {
+    id: "ai",
+    icon: Cpu,
+    title: "AI / Machine Learning",
+    description: "Implementing intelligent solutions using cutting-edge AI technologies.",
+    skills: [
+      { name: "Nexus AI", level: 90 },
+      { name: "Project RT", level: 88 },
+      { name: "Fine-tuning", level: 85 },
+      { name: "OpenAI API", level: 92 },
+      { name: "Quant Models", level: 80 },
+    ],
+    color: "from-white/40 to-white/20",
+    glowColor: "rgba(255, 255, 255, 0.1)",
+  },
+  {
+    id: "automation",
+    icon: Wand2,
+    title: "AI Automation",
+    description: "Building intelligent automation systems and workflow optimization.",
+    skills: [
+      { name: "Pipeline Automation", level: 92 },
+      { name: "Workflow Optimization", level: 88 },
+      { name: "AI Agents", level: 85 },
+      { name: "API Integration", level: 90 },
+      { name: "Task Orchestration", level: 87 },
+    ],
+    color: "from-white/50 to-white/30",
+    glowColor: "rgba(255, 255, 255, 0.1)",
+  },
   {
     id: "frontend",
     icon: Layers,
     title: "Frontend Development",
-    description: "Building responsive, performant, and accessible web applications with modern frameworks.",
+    description: "Building responsive, performant, and accessible web applications.",
     skills: [
       { name: "React/Next.js", level: 95 },
       { name: "TypeScript", level: 90 },
       { name: "Tailwind CSS", level: 95 },
       { name: "Framer Motion", level: 88 },
-      { name: "Three.js/WebGL", level: 75 },
+      { name: "Socket.io", level: 85 },
     ],
-    color: "from-neon-blue to-neon-cyan",
-    glowColor: "rgba(0, 240, 255, 0.2)",
+    color: "from-white/60 to-white/40",
+    glowColor: "rgba(255, 255, 255, 0.1)",
   },
   {
     id: "backend",
@@ -40,62 +71,32 @@ const expertiseData = [
     description: "Creating robust APIs and scalable server-side solutions.",
     skills: [
       { name: "Node.js", level: 90 },
-      { name: "Python", level: 85 },
+      { name: "Python", level: 92 },
       { name: "PostgreSQL", level: 88 },
-      { name: "GraphQL", level: 82 },
-      { name: "Redis", level: 78 },
+      { name: "Redis", level: 82 },
+      { name: "WebSocket", level: 85 },
     ],
-    color: "from-neon-purple to-neon-magenta",
-    glowColor: "rgba(184, 41, 221, 0.2)",
+    color: "from-white/70 to-white/50",
+    glowColor: "rgba(255, 255, 255, 0.1)",
   },
   {
-    id: "ai",
-    icon: Cpu,
-    title: "AI / Machine Learning",
-    description: "Implementing intelligent solutions using cutting-edge AI technologies.",
+    id: "cli",
+    icon: Wrench,
+    title: "CLI / TUI Tools",
+    description: "Advanced command-line workflows and terminal-based interfaces.",
     skills: [
-      { name: "TensorFlow", level: 80 },
-      { name: "PyTorch", level: 75 },
-      { name: "OpenAI API", level: 92 },
-      { name: "LangChain", level: 88 },
-      { name: "Hugging Face", level: 82 },
+      { name: "OpenCode", level: 95 },
+      { name: "Claude Code", level: 92 },
+      { name: "Terminal Workflows", level: 88 },
+      { name: "Script Automation", level: 90 },
+      { name: "Rust", level: 75 },
     ],
-    color: "from-neon-magenta to-neon-pink",
-    glowColor: "rgba(255, 0, 128, 0.2)",
-  },
-  {
-    id: "uiux",
-    icon: Palette,
-    title: "UI/UX Design",
-    description: "Designing intuitive and beautiful user interfaces with user-centric approaches.",
-    skills: [
-      { name: "Figma", level: 90 },
-      { name: "Design Systems", level: 88 },
-      { name: "Prototyping", level: 85 },
-      { name: "User Research", level: 80 },
-      { name: "Motion Design", level: 85 },
-    ],
-    color: "from-neon-cyan to-neon-blue",
-    glowColor: "rgba(0, 229, 255, 0.2)",
-  },
-  {
-    id: "motion",
-    icon: Wand2,
-    title: "Motion Design",
-    description: "Creating captivating animations and interactive experiences.",
-    skills: [
-      { name: "GSAP", level: 92 },
-      { name: "Framer Motion", level: 95 },
-      { name: "Three.js", level: 78 },
-      { name: "WebGL", level: 72 },
-      { name: "Lottie", level: 85 },
-    ],
-    color: "from-neon-violet to-neon-purple",
-    glowColor: "rgba(139, 92, 246, 0.2)",
+    color: "from-white/80 to-white/60",
+    glowColor: "rgba(255, 255, 255, 0.1)",
   },
   {
     id: "tools",
-    icon: Wrench,
+    icon: Palette,
     title: "Tools & DevOps",
     description: "Managing development workflows and deployment pipelines.",
     skills: [
@@ -103,15 +104,15 @@ const expertiseData = [
       { name: "Docker", level: 85 },
       { name: "AWS/Vercel", level: 88 },
       { name: "CI/CD", level: 82 },
-      { name: "Kubernetes", level: 70 },
+      { name: "Linux", level: 90 },
     ],
-    color: "from-neon-pink to-neon-magenta",
-    glowColor: "rgba(236, 72, 153, 0.2)",
+    color: "from-white/90 to-white/70",
+    glowColor: "rgba(255, 255, 255, 0.1)",
   },
 ];
 
 export default function ExpertisePage() {
-  const [activeCategory, setActiveCategory] = useState("frontend");
+  const [activeCategory, setActiveCategory] = useState("ai");
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
@@ -119,24 +120,30 @@ export default function ExpertisePage() {
 
   return (
     <div className="relative">
-      <AnimatedBackground />
-      <FloatingParticles />
-
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Expertise
             </span>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.2}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white mb-8">
               Skills & <span className="text-gradient">Technologies</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+          <Reveal delay={0.3}>
+            <p className="text-xl text-white/50 max-w-2xl mx-auto">
               A comprehensive toolkit for building modern, scalable, and intelligent applications
             </p>
           </Reveal>
@@ -167,7 +174,7 @@ export default function ExpertisePage() {
                       {activeCategory === category.id && (
                         <motion.div
                           layoutId="activeCategory"
-                          className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-cyan to-neon-purple"
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-white"
                         />
                       )}
 
@@ -176,9 +183,8 @@ export default function ExpertisePage() {
                           className={cn(
                             "w-10 h-10 rounded-lg flex items-center justify-center transition-all",
                             activeCategory === category.id
-                              ? "bg-gradient-to-br text-white"
-                              : "bg-white/5 text-white/60 group-hover:text-white",
-                            category.color
+                              ? "bg-white text-black"
+                              : "bg-white/5 text-white/60 group-hover:text-white"
                           )}
                         >
                           <category.icon className="w-5 h-5" />
@@ -199,7 +205,7 @@ export default function ExpertisePage() {
                           className={cn(
                             "w-4 h-4 transition-all",
                             activeCategory === category.id
-                              ? "text-neon-cyan rotate-90"
+                              ? "text-white rotate-90"
                               : "text-white/30"
                           )}
                         />
@@ -235,11 +241,10 @@ export default function ExpertisePage() {
                       <div className="flex items-start gap-4 mb-8">
                         <div
                           className={cn(
-                            "w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br",
-                            activeData.color
+                            "w-16 h-16 rounded-2xl flex items-center justify-center bg-white"
                           )}
                         >
-                          <activeData.icon className="w-8 h-8 text-white" />
+                          <activeData.icon className="w-8 h-8 text-black" />
                         </div>
                         <div>
                           <h2 className="text-2xl font-display font-bold text-white mb-2">
@@ -264,10 +269,7 @@ export default function ExpertisePage() {
                             </div>
                             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                               <motion.div
-                                className={cn(
-                                  "h-full rounded-full bg-gradient-to-r",
-                                  activeData.color
-                                )}
+                                className="h-full rounded-full bg-white"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${skill.level}%` }}
                                 transition={{
@@ -300,15 +302,15 @@ export default function ExpertisePage() {
 
           <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              "React", "Next.js", "TypeScript", "Node.js", "Python", "PostgreSQL",
-              "GraphQL", "TensorFlow", "AWS", "Docker", "Git", "Figma",
+              "Python", "Next.js", "TypeScript", "Node.js", "TensorFlow", "PostgreSQL",
+              "GraphQL", "PyTorch", "AWS", "Docker", "Git", "Redis",
             ].map((tech) => (
               <StaggerItem key={tech}>
                 <motion.div
                   className="p-4 rounded-xl glass text-center group cursor-pointer"
                   whileHover={{ y: -4, scale: 1.05 }}
                 >
-                  <Sparkles className="w-5 h-5 text-neon-cyan mx-auto mb-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Sparkles className="w-5 h-5 text-white mx-auto mb-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span className="text-white/70 text-sm group-hover:text-white transition-colors">
                     {tech}
                   </span>
@@ -321,5 +323,3 @@ export default function ExpertisePage() {
     </div>
   );
 }
-
-

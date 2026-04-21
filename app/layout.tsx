@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navigation } from "@/components/navigation";
+import SplashCursor from "@/components/SplashCursor";
+import { ClickSpark } from "@/components/effects/click-spark";
+import { NoiseOverlay } from "@/components/effects/noise-overlay";
+import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({
@@ -38,18 +43,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased bg-void text-white`}
+    <body
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased bg-void text-white`}
+    >
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem={false}
+        disableTransitionOnChange
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+        {/* Global Effects - Visible on all pages */}
+        <SplashCursor />
+        <ClickSpark />
+        <NoiseOverlay />
+        <AnimatedBackground />
+        <FloatingParticles />
+
+        {/* Navigation */}
+        <Navigation />
+
+        {/* Page Content */}
+        <main className="relative z-10">
           {children}
-        </ThemeProvider>
-      </body>
+        </main>
+      </ThemeProvider>
+    </body>
     </html>
   );
 }

@@ -36,7 +36,6 @@
   }
   body {
     @apply bg-void text-foreground;
-    cursor: none;
   }
   html {
     scroll-behavior: smooth;

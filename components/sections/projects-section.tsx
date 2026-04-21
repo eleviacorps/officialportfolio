@@ -2,11 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink, Github, Layers, ArrowRight, Cpu, Globe, Bot, LineChart, Wrench, MessageSquare } from "lucide-react";
+import { ExternalLink, Github, Layers, ArrowRight, Cpu, Globe, Bot, LineChart, Wrench, MessageSquare, Brain, Download, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
 
-const categories = ["All", "AI Research", "Automation", "Web Apps", "Quant/Finance", "Developer Tools"];
+const categories = ["All", "AI Research", "Web Apps", "Developer Tools"];
 
 const projects = [
   {
@@ -24,22 +24,22 @@ const projects = [
     id: 2,
     title: "Project RT",
     category: "AI Research",
-    description: "Real-time AI processing system with optimized inference pipelines. Focuses on efficient AI usage and optimization.",
+    description: "Real-time AI processing system with optimized inference pipelines. Closed source research project focusing on efficient AI usage.",
     tags: ["Python", "OpenAI", "Real-time"],
-    github: "https://github.com/eleviacorps/",
+    github: null, // Closed source
     live: "#",
     icon: Bot,
     color: "from-white/20 to-white/5",
   },
   {
     id: 3,
-    title: "Automation Pipeline",
-    category: "Automation",
-    description: "End-to-end automation framework for AI workflows. Streamlines complex tasks with intelligent orchestration.",
-    tags: ["Python", "Node.js", "Automation"],
-    github: "https://github.com/eleviacorps/",
+    title: "Personal AI",
+    category: "AI Research",
+    description: "Fine-tuned personal AI model trained on my messages and behavior patterns. Custom AI assistant with personalized responses.",
+    tags: ["Python", "LLM", "Fine-tuning"],
+    github: "https://github.com/eleviacorps/perso_ai",
     live: "#",
-    icon: Layers,
+    icon: Brain,
     color: "from-white/20 to-white/5",
   },
   {
@@ -48,31 +48,31 @@ const projects = [
     category: "Web Apps",
     description: "Full-featured chat application with rooms, invite codes, auth, database, profiles, voice messages, text, and images.",
     tags: ["Next.js", "Socket.io", "PostgreSQL"],
-    github: "https://github.com/eleviacorps/",
+    github: "https://github.com/eleviacorps/frostchat",
     live: "#",
     icon: MessageSquare,
     color: "from-white/20 to-white/5",
   },
   {
     id: 5,
-    title: "Quant Trading Bot",
-    category: "Quant/Finance",
-    description: "Algorithmic trading system with backtesting capabilities. Implements quantitative strategies.",
-    tags: ["Python", "Pandas", "Finance"],
+    title: "Stexter",
+    category: "Web Apps",
+    description: "Room-based texting web application. Modern chat interface with real-time messaging capabilities.",
+    tags: ["React", "Socket.io", "Node.js"],
     github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: LineChart,
+    live: "https://stexter.vercel.app/",
+    icon: MessageSquare,
     color: "from-white/20 to-white/5",
   },
   {
     id: 6,
-    title: "CLI Toolkit",
-    category: "Developer Tools",
-    description: "Command-line utilities for developer productivity. Includes TUI components and automation scripts.",
-    tags: ["Rust", "CLI", "TUI"],
-    github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: Wrench,
+    title: "Portfolio Website",
+    category: "Web Apps",
+    description: "Modern, interactive portfolio built with Next.js and Framer Motion. Features smooth animations and premium glassmorphism design.",
+    tags: ["Next.js", "TypeScript", "Motion"],
+    github: "https://github.com/eleviacorps/officialportfolio",
+    live: "https://elenev.vercel.app/",
+    icon: Globe,
     color: "from-white/20 to-white/5",
   },
 ];
@@ -103,7 +103,7 @@ export function ProjectsSection() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="max-w-2xl mx-auto text-lg text-white/50">
-              A selection of projects spanning AI research, automation systems, 
+              A selection of projects spanning AI research, automation systems,
               web development, and developer tools.
             </p>
           </Reveal>
@@ -172,17 +172,26 @@ export function ProjectsSection() {
 
                   {/* Links */}
                   <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
+                    {project.github ? (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                    ) : (
+                      <span className="flex items-center gap-2 text-white/30 text-sm">
+                        <Github className="w-4 h-4" />
+                        Private
+                      </span>
+                    )}
                     <a
                       href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
                     >
                       <ExternalLink className="w-4 h-4" />

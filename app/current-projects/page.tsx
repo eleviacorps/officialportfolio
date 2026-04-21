@@ -14,78 +14,78 @@ import {
   Users,
   Calendar,
   Zap,
+  ArrowLeft,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
-import { GlowButton } from "@/components/effects/glow-button";
-import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const currentProjects = [
   {
     id: 1,
-    title: "Neural Canvas",
-    description: "AI-powered creative platform for generating and editing visual content using natural language",
+    title: "Nexus AI",
+    description: "Advanced quantitative models and AI systems for financial analysis and prediction",
     progress: 75,
     status: "in-progress",
-    phase: "Beta Testing",
-    team: ["AC", "SJ", "MR"],
-    deadline: "March 2024",
+    phase: "Research",
+    team: ["RR"],
+    deadline: "Ongoing",
     tasks: {
       completed: 45,
       total: 60,
     },
-    tags: ["AI", "React", "Python"],
-    github: "#",
+    tags: ["AI", "Python", "Quant"],
+    github: "https://github.com/eleviacorps/",
     demo: "#",
-    color: "from-neon-cyan to-neon-blue",
+    color: "from-white/40 to-white/20",
     updates: [
-      { date: "Jan 15", text: "Core AI model integrated" },
-      { date: "Jan 10", text: "UI/UX design finalized" },
+      { date: "Jan 2025", text: "Core AI model architecture designed" },
+      { date: "Dec 2024", text: "Research phase initiated" },
     ],
   },
   {
     id: 2,
-    title: "DevFlow Analytics",
-    description: "Real-time analytics dashboard for development teams with AI-powered insights",
+    title: "Project RT",
+    description: "Real-time AI processing system with optimized inference pipelines",
     progress: 60,
     status: "in-progress",
-    phase: "Feature Development",
-    team: ["AC", "EP"],
-    deadline: "April 2024",
+    phase: "Development",
+    team: ["RR"],
+    deadline: "2025",
     tasks: {
       completed: 24,
       total: 40,
     },
-    tags: ["Next.js", "D3.js", "Node.js"],
-    github: "#",
+    tags: ["AI", "Python", "Real-time"],
+    github: null,
     demo: "#",
-    color: "from-neon-purple to-neon-magenta",
+    color: "from-white/50 to-white/30",
     updates: [
-      { date: "Jan 14", text: "Dashboard layout complete" },
-      { date: "Jan 8", text: "Data pipeline established" },
+      { date: "Jan 2025", text: "Inference pipeline optimization started" },
+      { date: "Dec 2024", text: "Base architecture complete" },
     ],
   },
   {
     id: 3,
-    title: "VoiceSync",
-    description: "Real-time voice collaboration tool with AI transcription and summarization",
+    title: "FrostChat",
+    description: "Full-featured chat application with rooms, invite codes, auth, database, profiles",
     progress: 90,
     status: "review",
     phase: "Final Review",
-    team: ["AC", "TK", "LW", "RD"],
-    deadline: "February 2024",
+    team: ["RR"],
+    deadline: "Complete",
     tasks: {
       completed: 36,
       total: 40,
     },
-    tags: ["WebRTC", "OpenAI", "Socket.io"],
-    github: "#",
+    tags: ["Next.js", "Socket.io", "PostgreSQL"],
+    github: "https://github.com/eleviacorps/frostchat",
     demo: "#",
-    color: "from-neon-magenta to-neon-pink",
+    color: "from-white/60 to-white/40",
     updates: [
-      { date: "Jan 16", text: "Beta launch completed" },
-      { date: "Jan 12", text: "Performance optimized" },
+      { date: "Jan 2025", text: "Voice messages feature added" },
+      { date: "Dec 2024", text: "Authentication system complete" },
     ],
   },
 ];
@@ -93,21 +93,21 @@ const currentProjects = [
 const upcomingProjects = [
   {
     id: 4,
-    title: "CodeAI Assistant",
-    description: "Intelligent coding companion with context-aware suggestions",
+    title: "Personal AI v2",
+    description: "Enhanced fine-tuned personal AI with improved context understanding",
     status: "planning",
-    estimatedStart: "Q2 2024",
-    tags: ["AI", "VS Code Extension"],
-    color: "from-neon-blue to-neon-cyan",
+    estimatedStart: "Q2 2025",
+    tags: ["AI", "LLM", "Fine-tuning"],
+    color: "from-white/70 to-white/50",
   },
   {
     id: 5,
-    title: "Design System Pro",
-    description: "Comprehensive design system builder with AI-powered component generation",
+    title: "Automation Framework",
+    description: "Comprehensive automation pipeline with self-healing capabilities",
     status: "planning",
-    estimatedStart: "Q2 2024",
-    tags: ["Figma Plugin", "AI"],
-    color: "from-neon-violet to-neon-purple",
+    estimatedStart: "Q2 2025",
+    tags: ["Python", "Automation", "Redis"],
+    color: "from-white/80 to-white/60",
   },
 ];
 
@@ -120,8 +120,8 @@ const statusIcons = {
 };
 
 const statusColors = {
-  "in-progress": "text-neon-cyan",
-  review: "text-neon-purple",
+  "in-progress": "text-white",
+  review: "text-white",
   planning: "text-white/50",
   completed: "text-green-400",
   blocked: "text-red-400",
@@ -134,24 +134,30 @@ export default function CurrentProjectsPage() {
 
   return (
     <div className="relative">
-      <AnimatedBackground />
-      <FloatingParticles />
-
       {/* Hero */}
       <section className="relative min-h-[40vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Reveal>
-            <span className="text-neon-cyan text-sm font-medium uppercase tracking-wider mb-4 block">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
               Current Work
             </span>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.2}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white mb-8">
               In <span className="text-gradient">Progress</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+          <Reveal delay={0.3}>
+            <p className="text-xl text-white/50 max-w-2xl mx-auto">
               Real-time updates on what I&apos;m currently building
             </p>
           </Reveal>
@@ -163,7 +169,7 @@ export default function CurrentProjectsPage() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className="text-2xl font-display font-bold text-white mb-8 flex items-center gap-3">
-              <Zap className="w-6 h-6 text-neon-cyan" />
+              <Zap className="w-6 h-6 text-white" />
               Active Projects
             </h2>
           </Reveal>
@@ -193,10 +199,10 @@ export default function CurrentProjectsPage() {
                               className={cn(
                                 "px-2 py-0.5 text-xs rounded-full flex items-center gap-1",
                                 project.status === "in-progress"
-                                  ? "bg-neon-cyan/20 text-neon-cyan"
+                                  ? "bg-white/10 text-white"
                                   : project.status === "review"
-                                  ? "bg-neon-purple/20 text-neon-purple"
-                                  : "bg-white/10 text-white/60"
+                                  ? "bg-white/10 text-white"
+                                  : "bg-white/5 text-white/60"
                               )}
                             >
                               <StatusIcon className="w-3 h-3" />
@@ -210,10 +216,7 @@ export default function CurrentProjectsPage() {
                             {project.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className={cn(
-                                  "px-2 py-1 text-xs rounded-md bg-gradient-to-r text-white/90",
-                                  project.color
-                                )}
+                                className="px-2 py-1 text-xs rounded-md bg-white/5 text-white/90"
                               >
                                 {tag}
                               </span>
@@ -241,10 +244,10 @@ export default function CurrentProjectsPage() {
                                 strokeWidth="3"
                               />
                               <motion.path
-                                className={cn("text-transparent bg-clip-text", project.color)}
+                                className="text-white"
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
-                                stroke="url(#progress-gradient)"
+                                stroke="white"
                                 strokeWidth="3"
                                 strokeDasharray={`${project.progress}, 100`}
                                 initial={{ strokeDasharray: "0, 100" }}
@@ -253,12 +256,6 @@ export default function CurrentProjectsPage() {
                                 }}
                                 transition={{ duration: 1, delay: 0.5 }}
                               />
-                              <defs>
-                                <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                  <stop offset="0%" stopColor="#00F0FF" />
-                                  <stop offset="100%" stopColor="#B829DD" />
-                                </linearGradient>
-                              </defs>
                             </svg>
                           </div>
                         </div>
@@ -285,7 +282,7 @@ export default function CurrentProjectsPage() {
                               <div className="flex items-center gap-3">
                                 <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
                                   <motion.div
-                                    className={cn("h-full rounded-full bg-gradient-to-r", project.color)}
+                                    className="h-full rounded-full bg-gradient-to-r from-white/60 to-white/30"
                                     initial={{ width: 0 }}
                                     animate={{ width: `${(project.tasks.completed / project.tasks.total) * 100}%` }}
                                     transition={{ duration: 0.8 }}
@@ -307,7 +304,7 @@ export default function CurrentProjectsPage() {
                                 {project.team.map((member) => (
                                   <div
                                     key={member}
-                                    className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center text-white text-xs font-bold border-2 border-abyss"
+                                    className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white text-xs font-bold border-2 border-black"
                                   >
                                     {member}
                                   </div>
@@ -342,17 +339,21 @@ export default function CurrentProjectsPage() {
 
                             {/* Actions */}
                             <div className="md:col-span-3 flex gap-3">
-                              <motion.a
-                                href={project.github}
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/10 transition-colors text-white/70 hover:text-white"
-                                whileHover={{ scale: 1.02 }}
-                              >
-                                <Github className="w-4 h-4" />
-                                View Code
-                              </motion.a>
+                              {project.github && (
+                                <motion.a
+                                  href={project.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 px-4 py-2 rounded-lg glass hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+                                  whileHover={{ scale: 1.02 }}
+                                >
+                                  <Github className="w-4 h-4" />
+                                  View Code
+                                </motion.a>
+                              )}
                               <motion.a
                                 href={project.demo}
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-medium"
+                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black font-medium"
                                 whileHover={{ scale: 1.02 }}
                               >
                                 <ExternalLink className="w-4 h-4" />
@@ -376,7 +377,7 @@ export default function CurrentProjectsPage() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className="text-2xl font-display font-bold text-white mb-8 flex items-center gap-3">
-              <Target className="w-6 h-6 text-neon-purple" />
+              <Target className="w-6 h-6 text-white" />
               Up Next
             </h2>
           </Reveal>
@@ -401,10 +402,7 @@ export default function CurrentProjectsPage() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={cn(
-                          "px-2 py-1 text-xs rounded-md bg-gradient-to-r text-white/90",
-                          project.color
-                        )}
+                        className="px-2 py-1 text-xs rounded-md bg-white/5 text-white/90"
                       >
                         {tag}
                       </span>

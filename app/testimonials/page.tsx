@@ -5,75 +5,54 @@ import { useRef, useState, useEffect } from "react";
 import { Quote, Star, ChevronLeft, ChevronRight, ArrowLeft, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
-import { AnimatedBackground } from "@/components/effects/animated-background";
 import Link from "next/link";
 
 const testimonials = [
   {
     id: 1,
     quote:
-      "Rehan delivered an exceptional product that exceeded all our expectations. His attention to detail and technical expertise are unmatched in the industry.",
-    author: "Sarah Chen",
+      "Rehan delivered exceptional work on our AI automation pipeline. His technical expertise and attention to detail are remarkable for someone so young.",
+    author: "Client Name",
     role: "CTO",
-    company: "TechVentures Inc.",
-    avatar: "SC",
+    company: "Tech Startup",
+    avatar: "TN",
     rating: 5,
   },
   {
     id: 2,
     quote:
-      "Working with Rehan was a game-changer for our startup. The AI integration he implemented increased our efficiency by 300% within the first month.",
-    author: "Michael Roberts",
+      "Working with Rehan was a game-changer for our project. The real-time chat application he built exceeded all our expectations.",
+    author: "Project Partner",
     role: "Founder",
-    company: "DataFlow AI",
-    avatar: "MR",
+    company: "Web App",
+    avatar: "PP",
     rating: 5,
   },
   {
     id: 3,
     quote:
-      "The most professional developer I've had the pleasure to work with. Rehan understands both the technical and business sides of projects perfectly.",
-    author: "Emily Watson",
+      "The most professional developer I've collaborated with. Rehan understands both the technical and business sides perfectly.",
+    author: "Team Lead",
     role: "Product Lead",
-    company: "InnovateCo",
-    avatar: "EW",
+    company: "Dev Team",
+    avatar: "TL",
     rating: 5,
   },
   {
     id: 4,
     quote:
-      "Exceptional work on our platform redesign. The animations and interactions Rehan created made our product feel truly premium.",
-    author: "David Park",
+      "Exceptional work on our automation systems. The AI integration Rehan implemented streamlined our entire workflow.",
+    author: "Partner",
     role: "CEO",
-    company: "DesignStudio",
-    avatar: "DP",
-    rating: 5,
-  },
-  {
-    id: 5,
-    quote:
-      "Rehan's expertise in AI and machine learning transformed our data processing pipeline. Highly recommend for any complex technical projects.",
-    author: "Lisa Thompson",
-    role: "VP Engineering",
-    company: "CloudScale",
-    avatar: "LT",
-    rating: 5,
-  },
-  {
-    id: 6,
-    quote:
-      "A true creative technologist. Rehan doesn't just write code—he crafts experiences. Our conversion rate increased 40% after the redesign.",
-    author: "James Wilson",
-    role: "Marketing Director",
-    company: "GrowthLabs",
-    avatar: "JW",
+    company: "Automation Co",
+    avatar: "PC",
     rating: 5,
   },
 ];
 
 const stats = [
-  { value: "50+", label: "Projects" },
-  { value: "30+", label: "Happy Clients" },
+  { value: "12+", label: "Projects" },
+  { value: "8+", label: "Happy Clients" },
   { value: "100%", label: "Satisfaction" },
   { value: "5.0", label: "Average Rating" },
 ];
@@ -101,8 +80,6 @@ export default function TestimonialsPage() {
 
   return (
     <div className="relative min-h-screen">
-      <AnimatedBackground />
-
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -127,8 +104,7 @@ export default function TestimonialsPage() {
           </Reveal>
           <Reveal delay={0.3}>
             <p className="text-xl text-white/50 max-w-2xl mx-auto">
-              Hear from the amazing people I&apos;ve had the privilege to work
-              with
+              Hear from the amazing people I've had the privilege to work with
             </p>
           </Reveal>
         </div>
@@ -319,7 +295,7 @@ export default function TestimonialsPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-white/50 mb-8">
-              Let&apos;s create something amazing together.
+              Let's create something amazing together.
             </p>
           </Reveal>
           <Reveal delay={0.2}>

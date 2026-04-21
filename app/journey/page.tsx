@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
-import { AnimatedBackground } from "@/components/effects/animated-background";
 import Link from "next/link";
 
 const journeyData = [
@@ -67,7 +66,7 @@ const journeyData = [
 
 const stats = [
   { value: "4+", label: "Years of Coding" },
-  { value: "50+", label: "Projects Built" },
+  { value: "12+", label: "Projects Built" },
   { value: "∞", label: "Coffee Consumed" },
   { value: "24/7", label: "Learning Mode" },
 ];
@@ -78,8 +77,6 @@ export default function JourneyPage() {
 
   return (
     <div className="relative min-h-screen">
-      <AnimatedBackground />
-
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">

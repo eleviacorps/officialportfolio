@@ -12,12 +12,15 @@ import {
   Bot,
   LineChart,
   Wrench,
+  MessageSquare,
+  Download,
   Sparkles,
   Search,
   Filter,
+  Brain,
+  BookOpen,
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { AnimatedBackground } from "@/components/effects/animated-background";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -49,9 +52,9 @@ const projects = [
     title: "Project RT",
     category: "AI Research",
     description:
-      "Real-time AI processing system with optimized inference pipelines. Focuses on efficient AI usage and model optimization techniques for low-latency responses.",
+      "Real-time AI processing system with optimized inference pipelines. Focuses on efficient AI usage and model optimization techniques for low-latency responses. Closed source research project.",
     tags: ["Python", "OpenAI", "Real-time", "WebSocket"],
-    github: "https://github.com/eleviacorps/",
+    github: null, // Closed source
     live: "#",
     icon: Bot,
     featured: true,
@@ -59,32 +62,84 @@ const projects = [
   },
   {
     id: 3,
-    title: "Automation Pipeline",
-    category: "Automation",
+    title: "FrostChat",
+    category: "Web Apps",
     description:
-      "End-to-end automation framework for AI workflows. Streamlines complex tasks with intelligent orchestration, error handling, and self-healing capabilities.",
-    tags: ["Python", "Node.js", "Automation", "Redis"],
-    github: "https://github.com/eleviacorps/",
+      "Full-featured chat application with rooms, invite codes, authentication, database, profiles, voice messages, text, and images. Modern real-time messaging platform.",
+    tags: ["Next.js", "Socket.io", "PostgreSQL", "Redis"],
+    github: "https://github.com/eleviacorps/frostchat",
     live: "#",
-    icon: Layers,
+    icon: MessageSquare,
     featured: true,
-    year: "2025",
+    year: "2024",
   },
   {
     id: 4,
-    title: "Portfolio Website",
+    title: "Stexter",
     category: "Web Apps",
     description:
-      "Modern, interactive portfolio built with Next.js and Framer Motion. Features smooth animations, premium glassmorphism design, and responsive layouts.",
-    tags: ["Next.js", "TypeScript", "Motion", "Tailwind"],
+      "Room-based texting web application. Modern chat interface with real-time messaging capabilities and room management.",
+    tags: ["React", "Socket.io", "Node.js"],
     github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: Globe,
-    featured: false,
+    live: "https://stexter.vercel.app/",
+    icon: MessageSquare,
+    featured: true,
     year: "2024",
   },
   {
     id: 5,
+    title: "FrostTexter",
+    category: "Web Apps",
+    description:
+      "Texting application with modern UI and real-time capabilities. Lightweight messaging solution.",
+    tags: ["JavaScript", "WebSocket", "Express"],
+    github: "https://github.com/eleviacorps/frosttexter",
+    live: "#",
+    icon: MessageSquare,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 6,
+    title: "Personal AI",
+    category: "AI Research",
+    description:
+      "Fine-tuned personal AI model trained on my messages and behavior patterns. Custom AI assistant with personalized responses.",
+    tags: ["Python", "LLM", "Fine-tuning", "PyTorch"],
+    github: "https://github.com/eleviacorps/perso_ai",
+    live: "#",
+    icon: Brain,
+    featured: true,
+    year: "2024",
+  },
+  {
+    id: 7,
+    title: "FR Downloader",
+    category: "Developer Tools",
+    description:
+      "Specific website direct download link extractor and download manager. CLI tool for extracting direct media links.",
+    tags: ["Python", "CLI", "Web Scraping"],
+    github: "https://github.com/eleviacorps/fr_downloader",
+    live: "#",
+    icon: Download,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 8,
+    title: "AI Study Pipeline",
+    category: "AI Research",
+    description:
+      "Enhanced NCERT study assistant skill. Document ingestion and text extraction pipeline for educational content processing.",
+    tags: ["Python", "NLP", "PDF Processing"],
+    github: "https://github.com/eleviacorps/ai_studypipeline",
+    live: "#",
+    icon: BookOpen,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 9,
     title: "Quant Trading Bot",
     category: "Quant/Finance",
     description:
@@ -97,7 +152,33 @@ const projects = [
     year: "2025",
   },
   {
-    id: 6,
+    id: 10,
+    title: "Automation Pipeline",
+    category: "Automation",
+    description:
+      "End-to-end automation framework for AI workflows. Streamlines complex tasks with intelligent orchestration, error handling, and self-healing capabilities.",
+    tags: ["Python", "Node.js", "Automation", "Redis"],
+    github: "https://github.com/eleviacorps/",
+    live: "#",
+    icon: Layers,
+    featured: false,
+    year: "2025",
+  },
+  {
+    id: 11,
+    title: "Portfolio Website",
+    category: "Web Apps",
+    description:
+      "Modern, interactive portfolio built with Next.js and Framer Motion. Features smooth animations, premium glassmorphism design, and responsive layouts.",
+    tags: ["Next.js", "TypeScript", "Motion", "Tailwind"],
+    github: "https://github.com/eleviacorps/officialportfolio",
+    live: "https://elenev.vercel.app/",
+    icon: Globe,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 12,
     title: "CLI Toolkit",
     category: "Developer Tools",
     description:
@@ -109,52 +190,13 @@ const projects = [
     featured: false,
     year: "2024",
   },
-  {
-    id: 7,
-    title: "AI Chat Interface",
-    category: "AI Research",
-    description:
-      "Custom chat interface for interacting with multiple LLM providers. Features streaming responses, conversation history, and prompt templates.",
-    tags: ["React", "TypeScript", "OpenAI", "Claude"],
-    github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: Bot,
-    featured: false,
-    year: "2025",
-  },
-  {
-    id: 8,
-    title: "Data Sync Engine",
-    category: "Automation",
-    description:
-      "Real-time data synchronization engine for distributed systems. Ensures consistency across multiple data sources with conflict resolution.",
-    tags: ["Node.js", "PostgreSQL", "Redis", "WebSocket"],
-    github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: Layers,
-    featured: false,
-    year: "2024",
-  },
-  {
-    id: 9,
-    title: "Analytics Dashboard",
-    category: "Web Apps",
-    description:
-      "Comprehensive analytics dashboard with real-time data visualization. Features custom charts, export capabilities, and alerting systems.",
-    tags: ["Next.js", "D3.js", "PostgreSQL", "Prisma"],
-    github: "https://github.com/eleviacorps/",
-    live: "#",
-    icon: Globe,
-    featured: false,
-    year: "2024",
-  },
 ];
 
 const stats = [
-  { value: "9+", label: "Projects" },
+  { value: "12+", label: "Projects" },
   { value: "6", label: "Categories" },
   { value: "4+", label: "Years" },
-  { value: "100%", label: "Open Source" },
+  { value: "100%", label: "Passion" },
 ];
 
 export default function ProjectsPage() {
@@ -178,8 +220,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="relative min-h-screen">
-      <AnimatedBackground />
-
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -275,17 +315,21 @@ export default function ProjectsPage() {
                     ))}
                   </div>
                   <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-sm"
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-sm"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                    )}
                     <a
                       href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-sm"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -379,17 +423,26 @@ export default function ProjectsPage() {
                         ))}
                       </div>
                       <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-xs"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          Code
-                        </a>
+                        {project.github ? (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-xs"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            Code
+                          </a>
+                        ) : (
+                          <span className="flex items-center gap-1.5 text-white/30 text-xs">
+                            <Github className="w-3.5 h-3.5" />
+                            Private
+                          </span>
+                        )}
                         <a
                           href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors text-xs"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />

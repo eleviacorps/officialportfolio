@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger-container";
-import { AnimatedBackground } from "@/components/effects/animated-background";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -66,7 +65,7 @@ const skillCategories = [
       { name: "React", level: "Expert", description: "Component-based UI development" },
       { name: "TypeScript", level: "Advanced", description: "Type-safe JavaScript development" },
       { name: "Node.js", level: "Advanced", description: "Server-side JavaScript runtime" },
-      { name: "Full-Stack", level: "Expert", description: "End-to-end application development" },
+      { name: "Socket.io", level: "Advanced", description: "Real-time bidirectional communication" },
     ],
     description: "Creating modern, performant web applications with cutting-edge frameworks and technologies.",
     color: "from-white/20 to-white/5",
@@ -129,8 +128,6 @@ export default function SkillsPage() {
 
   return (
     <div className="relative min-h-screen">
-      <AnimatedBackground />
-
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">

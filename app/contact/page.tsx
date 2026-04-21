@@ -2,30 +2,28 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Github, Linkedin, Twitter, Send, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, Send, MapPin, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { GlowButton } from "@/components/effects/glow-button";
-import { AnimatedBackground, FloatingParticles } from "@/components/effects/animated-background";
 import { cn } from "@/lib/utils";
 
 const socialLinks = [
   {
     icon: Github,
     label: "GitHub",
-    value: "@alexchen",
-    href: "https://github.com",
+    value: "@eleviacorps",
+    href: "https://github.com/eleviacorps",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "Alex Chen",
-    href: "https://linkedin.com",
+    value: "Rehan Raza",
+    href: "https://linkedin.com/in/elenviacious",
   },
   {
-    icon: Twitter,
-    label: "Twitter",
-    value: "@alexchendev",
-    href: "https://twitter.com",
+    icon: Instagram,
+    label: "Instagram",
+    value: "@itz_rez785",
+    href: "https://instagram.com/itz_rez785",
   },
 ];
 
@@ -47,9 +45,6 @@ export default function ContactPage() {
 
   return (
     <div className="relative">
-      <AnimatedBackground />
-      <FloatingParticles />
-
       {/* Hero */}
       <section className="relative min-h-[40vh] flex items-center justify-center pt-32 pb-20 px-6">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -85,8 +80,7 @@ export default function ContactPage() {
 
               <div className="space-y-6 mb-12">
                 <Reveal delay={0.1}>
-                  <motion.a
-                    href="mailto:hello@alexchen.dev"
+                  <motion.div
                     className="flex items-center gap-4 p-4 rounded-xl glass group cursor-pointer"
                     whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.05)" }}
                   >
@@ -96,11 +90,11 @@ export default function ContactPage() {
                     <div className="flex-1">
                       <div className="text-white/50 text-sm">Email</div>
                       <div className="text-white group-hover:text-gradient transition-colors">
-                        hello@alexchen.dev
+                        rehan.raza@example.com
                       </div>
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-white/30 group-hover:text-white transition-colors" />
-                  </motion.a>
+                  </motion.div>
                 </Reveal>
 
                 <Reveal delay={0.2}>
@@ -113,7 +107,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-white/50 text-sm">Location</div>
-                      <div className="text-white">San Francisco, CA</div>
+                      <div className="text-white">India</div>
                     </div>
                   </motion.div>
                 </Reveal>
